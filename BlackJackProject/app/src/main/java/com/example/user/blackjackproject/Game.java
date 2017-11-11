@@ -40,9 +40,18 @@ public class Game {
         return this.players.get(0).getHandValue();
     }
 
+    public String showDealerHand(){
+        return this.players.get(1).getHand().describeHand();
+    }
+
+    public Integer showDealerHandValue(){
+        return this.players.get(1).getHand().getHandValue();
+    }
+
     public void stick(){
         players.get(0).setStickOrTwist("f");
         //employs dealer logic and continues
+        dealerMove();
     }
 
     public void twist(){
@@ -51,9 +60,9 @@ public class Game {
     }
 
     public void stickOrTwistAction() {
-        for (int i = 0; i < players.size()-1; i++) {
+        for (int i = 0; i < players.size() - 1; i++) {
             Participant player = players.get(i);
-            if (player.getHand().checkIfAce()){
+            if (player.getHand().checkIfAce()) {
                 player.getHand().makeAcesLowIfBust();
             }
             while (!player.getHand().checkBust() && player.getStickOrTwist().equals("t")) {
@@ -64,34 +73,39 @@ public class Game {
                 }
             }
         }
+    }
 
 //      Dealer logic
 
-
+    public void dealerMove() {
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
         }
-
-        Participant winner = checkWinner(players);
-
     }
 
-    public Participant checkWinner(ArrayList<Participant> players) {
+
+
+    public String checkWinner(ArrayList<Participant> players) {
         Participant player1 = players.get(0);
         Participant player2 = players.get(1);
 
         if (!player1.getHand().checkBust() && !player2.getHand().checkBust()) {
             if (player1.getHandValue() == player2.getHandValue()) {
-                return player1;
+                return player1.getName();
             } else {
-                return player1.getHandValue() > player2.getHandValue() ? player1 : player2;
+                return player1.getHandValue() > player2.getHandValue() ? player1.getName() : player2.getName();
             }
 
         } else {
 
-            return player1.getHand().checkBust() ? player2 : player1;
+            return player1.getHand().checkBust() ? player2.getName() : player1.getName();
 
         }
     }
+
+    public String displayWinner(){
+        return checkWinner(players);
+    }
+
 }
 

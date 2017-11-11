@@ -10,8 +10,12 @@ public class GameActivity extends AppCompatActivity {
     Button startButton;
     Game newGame;
     Deck deck;
+
     TextView handDisplayTv;
     TextView handValueTv;
+    TextView dealerHandTv;
+    TextView dealerHandValueTv;
+    TextView showWinnerTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public class GameActivity extends AppCompatActivity {
         startButton = (Button) findViewById(R.id.playBtn);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
         handValueTv = (TextView) findViewById(R.id.handValueTv);
+        dealerHandTv = (TextView) findViewById(R.id.dealerHandDisplayTv);
+        dealerHandValueTv = (TextView) findViewById(R.id.dealerHandValueTv);
+        showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
     }
 
     //steps of Game
@@ -42,10 +49,19 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void stick(View view) {
+        newGame.stick();
+
+        //Dealer Move
+        newGame.dealerMove();
+        dealerHandTv.setText(newGame.showDealerHand());
+        dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
+        showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 
     }
 
 
     public void twist(View view) {
+        newGame.twist();
+        //deals new card and displays new result
     }
 }
