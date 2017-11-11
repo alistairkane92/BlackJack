@@ -49,15 +49,13 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         betPlaced = 0;
-        deck = new Deck();
-
-
-        newGame = new Game(deck);
         newFunds = 0;
 
+        deck = new Deck();
+
+        newGame = new Game(deck);
         extras = getIntent().getExtras();
         newFunds = extras.getInt("newFunds");
-
         newGame.setUserFunds(newFunds);
 
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
@@ -72,10 +70,13 @@ public class GameActivity extends AppCompatActivity {
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
 
+
+        betBar.setMax(newGame.showUserFunds());
+
         selectedBetTv.setText("Bet amount: " + betBar.getProgress() + "/" + betBar.getMax());
 
         //onSeekBar is used to keep track of the value of the seekBar
-        betBar.setMax(newGame.showUserFunds());
+
 
         betBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
