@@ -131,6 +131,10 @@ public class GameActivity extends AppCompatActivity {
 
         makeRebuyVisibleIfBust();
 
+        if (!newGame.getPlayers().get(0).getHand().checkBust()){
+            Toast.makeText(getApplicationContext(), "Place your bet please!", Toast.LENGTH_LONG).show();
+        }
+
     }
     public void dealerMove(){
         //Dealer Move
