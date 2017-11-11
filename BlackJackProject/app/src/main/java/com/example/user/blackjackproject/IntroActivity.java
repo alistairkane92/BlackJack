@@ -20,7 +20,7 @@ public class IntroActivity extends AppCompatActivity {
 
 
     public void goToMain(View view) {
-        Intent i = new Intent(this, GameActivity.class);
+        Intent i = new Intent(this, RebuyActivity.class);
         startActivity(i);
     }
 }

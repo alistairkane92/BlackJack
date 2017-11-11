@@ -18,7 +18,7 @@ public class TestPlayer {
 
     @Before
     public void setup(){
-        player = new Player("Ally");
+        player = new Player("Ally", 1000);
         card = new Card(Suit.DIAMONDS, Rank.TWO);
         card2 = new Card(Suit.SPADES, Rank.TEN);
         card3 = new Card(Suit.HEARTS, Rank.TEN);
@@ -61,5 +61,11 @@ public class TestPlayer {
     public void playerSetStickOrTwist() throws Exception {
         player.setStickOrTwist("s");
         assertEquals("s", player.getStickOrTwist());
+    }
+
+    @Test
+    public void setFunds() throws Exception {
+        player.setFunds(50);
+        assertEquals(50, player.getFunds());
     }
 }

@@ -13,6 +13,7 @@ public class GameActivity extends AppCompatActivity {
     Button placeBetBtn;
     Button stickBtn;
     Button twistBtn;
+    Button rebuyBtn;
 
     Bundle extras;
     Integer newFunds;
@@ -36,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
         placeBetBtn = (Button) findViewById(R.id.placeBetBtn);
         stickBtn = (Button) findViewById(R.id.stickBtn);
         twistBtn = (Button) findViewById(R.id.twistBtn);
+        rebuyBtn = (Button) findViewById(R.id.rebuyButton);
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
@@ -48,14 +50,17 @@ public class GameActivity extends AppCompatActivity {
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         betPlaced = 0;
         deck = new Deck();
+
+
         newGame = new Game(deck);
-        showFundsTv.setText(newGame.showUserFunds().toString());
+        newFunds = 0;
 
         extras = getIntent().getExtras();
         newFunds = extras.getInt("newFunds");
+
         newGame.setUserFunds(newFunds);
 
-
+        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
 
     @Override
@@ -102,12 +107,25 @@ public class GameActivity extends AppCompatActivity {
     //update round counter
 
 
+    public void makeRebuyVisibleIfBust(){
+        if (newGame.showUserFunds() < 0){
+            rebuyBtn.setVisibility(View.VISIBLE);
+            stickBtn.setVisibility(View.INVISIBLE);
+            twistBtn.setVisibility(View.INVISIBLE);
+            handDisplayTv.setVisibility(View.INVISIBLE);
+
+
+
+        }
+    }
 
     public void stick(View view) {
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
+        handValueTv.setVisibility(View.INVISIBLE);
+
 
 
         newGame.stick();
@@ -122,19 +140,18 @@ public class GameActivity extends AppCompatActivity {
         showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 
         newGame.payOut(betPlaced);
-        showFundsTv.setText(newGame.showUserFunds().toString());
+        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
         betBar.setMax(newGame.showUserFunds());
-        Intent i = new Intent(this, RebuyActivity.class);
-        startActivity(i);
+
+        makeRebuyVisibleIfBust();
 
     }
 
     public void twist(View view) {
         newGame.twist();
         handDisplayTv.setText(newGame.showUserHand());
-        handValueTv.setText(newGame.showUserHandValue().toString());
+        handValueTv.setText(Integer.toString(newGame.showUserFunds()));
         checkBustTv.setText(newGame.displayBust());
-
         //deals new card and displays new result
     }
 
@@ -149,7 +166,7 @@ public class GameActivity extends AppCompatActivity {
         dealerHandValueTv.setText("");
         showWinnerTv.setText("");
         checkBustTv.setText("");
-        showFundsTv.setText(newGame.showUserFunds().toString());
+        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
 
 
         newGame.deal();
@@ -157,9 +174,5 @@ public class GameActivity extends AppCompatActivity {
         handValueTv.setText(newGame.showUserHandValue().toString());
 
         betBar.setMax(newGame.showUserFunds());
-    }
-
-    public void setUserFunds(){
-
     }
 }

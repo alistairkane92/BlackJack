@@ -25,9 +25,9 @@ public class TestDealer {
     @Before
     public void setup(){
         deck = new Deck();
-        player = new Player("Player1");
+        player = new Player("Player1", 1000);
         spyDeck = Mockito.spy(deck);
-        spyDealer = new Dealer("Dealer");
+        spyDealer = new Dealer("Dealer", 1000);
         card1 = new Card(Suit.HEARTS, Rank.ACE);
         card2 = new Card(Suit.CLUBS, Rank.QUEEN);
         players = new ArrayList<Participant>();

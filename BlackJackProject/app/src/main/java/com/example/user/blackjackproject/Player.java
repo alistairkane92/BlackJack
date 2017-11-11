@@ -8,7 +8,7 @@ public class Player implements Participant {
     private Hand hand;
     private String name;
     private String stickOrTwist;
-    private Integer funds;
+    private int funds;
 
     public Player(String name, Integer funds) {
         this.name = name;
@@ -21,11 +21,11 @@ public class Player implements Participant {
         funds -= bet;
     }
 
-    public Integer getFunds() {
+    public int getFunds() {
         return funds;
     }
 
-    public void setFunds(Integer funds) {
+    public void setFunds(int funds) {
         this.funds = funds;
     }
 

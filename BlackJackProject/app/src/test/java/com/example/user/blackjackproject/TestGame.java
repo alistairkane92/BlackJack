@@ -27,11 +27,11 @@ public class TestGame {
     private Card card4;
 
     @Before
-    public void before(){
+    public void before() {
         deck = new Deck();
         spyDeck = Mockito.spy(deck);
-        player1 = new Player("Player 1");
-        player2 = new Dealer("Dealer");
+        player1 = new Player("Player 1", 1000);
+        player2 = new Dealer("Dealer", 1000);
         players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
@@ -49,13 +49,13 @@ public class TestGame {
 //    }
 
     @Test
-    public void gameHasWinner(){
+    public void gameHasWinner() {
         player1.addCardToHand(card1);
         player1.addCardToHand(card2);
         player2.addCardToHand(card3);
         player2.addCardToHand(card4);
-        Participant player = game.checkWinner(players);
-        assertEquals("Dealer", player.getName());
+        String winner = game.checkWinner(players);
+        assertEquals("Dealer", winner);
     }
 
     @Test
@@ -66,14 +66,14 @@ public class TestGame {
         player2.addCardToHand(card4);
         player2.addCardToHand(card4);
         player2.addCardToHand(card4);
-        Participant player = game.checkWinner(players);
-        assertEquals("Player 1", player.getName());
+        String winner = game.checkWinner(players);
+        assertEquals("Player 1", winner);
     }
 
-
-
-//    @Test
-//    public void testDealerTwistsWhenUnder16() throws Exception {
-//
-//    }
+    @Test
+    public void testSetPlayerFunds() throws Exception {
+        game.setUserFunds(50);
+        assertEquals(50, game.showUserFunds());
+    }
 }
+

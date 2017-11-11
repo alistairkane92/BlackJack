@@ -16,10 +16,10 @@ public class Game {
 
     public Game(Deck deck) {
         this.deck = deck;
-        this.dealer = new Dealer("Dealer", 1000);
+        this.dealer = new Dealer("Dealer", 0);
         this.players = new ArrayList<>();
+        this.player = new Player("Player 1", 0);
 
-        player = new Player("Player 1", 1000);
         players.add(player);
         players.add(dealer);
 
@@ -30,7 +30,7 @@ public class Game {
     }
 
     public void deal(){
-        dealer.setMaxDealerFunds();
+        dealer.setMaxDealerFunds(player.getFunds());
         dealer.returnCards();
         dealer.resetHandValue();
         player.resetHandValue();
@@ -40,23 +40,23 @@ public class Game {
     }
 
     public String showUserHand(){
-        return this.players.get(0).getHand().describeHand();
+        return player.describeHand();
     }
 
     public Integer showUserHandValue(){
-        return this.players.get(0).getHandValue();
+        return player.getHandValue();
     }
 
-    public Integer showUserFunds(){ return players.get(0).getFunds(); }
+    public int showUserFunds(){ return player.getFunds(); }
 
-    public void setUserFunds(Integer newAmount){player.setFunds(player.getFunds() + newAmount);}
+    public void setUserFunds(int newAmount){player.setFunds(newAmount);}
 
     public String showDealerHand(){
-        return this.players.get(1).getHand().describeHand();
+        return dealer.describeHand();
     }
 
     public Integer showDealerHandValue(){
-        return this.players.get(1).getHand().getHandValue();
+        return dealer.getHandValue();
     }
 
 

@@ -13,8 +13,8 @@ public class Dealer extends Player implements Participant {
         super(name, funds);
     }
 
-    public void setMaxDealerFunds() {
-        setFunds(1000);
+    public void setMaxDealerFunds(Integer playerFunds) {
+        setFunds(playerFunds);
     }
 
     public void dealCard(Participant player, Deck deck) {
