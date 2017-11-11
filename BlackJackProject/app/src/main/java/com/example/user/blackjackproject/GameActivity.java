@@ -64,15 +64,19 @@ public class GameActivity extends AppCompatActivity {
 
     public void stick(View view) {
         newGame.stick();
+        betPlaced = 5;
+        newGame.placeBet(betPlaced);
 
         //Dealer Move
         newGame.dealerMove();
+
+        //update Views
         dealerHandTv.setText(newGame.showDealerHand());
         dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
         showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
-        betPlaced = 5;
+
         newGame.payOut(betPlaced);
-//        showFundsTv.setText(newGame.showUserFunds());
+        showFundsTv.setText(newGame.showUserFunds().toString());
 
     }
 

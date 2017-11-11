@@ -101,6 +101,7 @@ public class Game {
         }
     }
 
+//  Winner
 
     public String checkWinner(ArrayList<Participant> players) {
         Participant player1 = players.get(0);
@@ -124,12 +125,21 @@ public class Game {
         return checkWinner(players);
     }
 
+
+    // BET LOGIC
+
+    public void placeBet(Integer betAmount){
+        player.setFunds(player.getFunds() - betAmount);
+    }
+
     public void payOut(Integer betPlaced){
         Participant player1 = players.get(0);
+
         if (checkWinner(players).equals(player1.getName())){
             player1.setFunds(player1.getFunds() + betPlaced * 2);
         }
     }
+
 
 }
 
