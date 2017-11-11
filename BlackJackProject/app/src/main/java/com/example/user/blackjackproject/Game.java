@@ -30,6 +30,7 @@ public class Game {
     }
 
     public void deal(){
+
         dealer.returnCards();
         dealer.resetHandValue();
         player.resetHandValue();

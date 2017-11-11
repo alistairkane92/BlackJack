@@ -43,6 +43,10 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void startGame(View view) {
+        dealerHandTv.setText("");
+        dealerHandValueTv.setText("");
+        showWinnerTv.setText("");
+
         newGame.deal();
         handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());
