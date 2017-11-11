@@ -9,19 +9,6 @@
     tools:layout_editor_absoluteX="0dp">
 
     <Button
-        android:id="@+id/playBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CLICK TO PLAY"
-        android:onClick="startGame"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="212dp" />
-
-    <Button
         android:id="@+id/twistBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +16,7 @@
         android:onClick="twist"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="56dp"
+        android:layout_marginRight="43dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
@@ -44,7 +31,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintRight_toLeftOf="@+id/twistBtn"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.419" />
+        app:layout_constraintHorizontal_bias="0.257" />
 
     <TextView
         android:id="@+id/textView2"
@@ -71,11 +58,12 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.736"
+        app:layout_constraintVertical_bias="0.669"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <ImageView
         android:id="@+id/villainImageV"
@@ -109,11 +97,11 @@
         tools:text="handValue"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="135dp"
-        app:layout_constraintRight_toLeftOf="@+id/handDisplayTv"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.794" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="328dp" />
 
     <TextView
         android:id="@+id/dealerHandValueTv"
@@ -133,31 +121,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="showWinner"
-        android:layout_marginBottom="23dp"
-        app:layout_constraintBottom_toTopOf="@+id/playBtn"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dealerHandDisplayTv"
-        app:layout_constraintVertical_bias="0.864" />
+        tools:layout_editor_absoluteY="193dp" />
 
     <TextView
         android:id="@+id/checkBustTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="checkBust"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="47dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/handDisplayTv"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.794"
         android:layout_marginBottom="103dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.997" />
+        app:layout_constraintVertical_bias="0.919" />
 
     <TextView
         android:id="@+id/displayFunds"
@@ -169,27 +150,24 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.022"
+        app:layout_constraintVertical_bias="0.051"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <SeekBar
         android:id="@+id/pickABetSb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="133dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.948"
+        style="@android:style/Widget.Material.SeekBar"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="73dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:max="1000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.851"
-        android:max="1000"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/selectedBetTV"
@@ -204,7 +182,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801"
+        app:layout_constraintVertical_bias="0.736"
         tools:text="selected" />
 
     <TextView
@@ -218,7 +196,23 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="288dp" />
+        app:layout_constraintVertical_bias="0.866"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="1.0" />
+
+    <Button
+        android:id="@+id/placeBetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="PLACE BET"
+        android:onClick="placeBet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintLeft_toRightOf="@+id/stickBtn"
+        app:layout_constraintRight_toLeftOf="@+id/twistBtn" />
 
 </android.support.constraint.ConstraintLayout>

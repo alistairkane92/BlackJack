@@ -9,7 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
-    Button startButton;
+    Button placeBetBtn;
+    Button stickBtn;
+    Button twistBtn;
+
     Game newGame;
     Deck deck;
     Integer betPlaced;
@@ -26,7 +29,10 @@ public class GameActivity extends AppCompatActivity {
     SeekBar betBar;
 
     private void initializeVariables(){
-        startButton = (Button) findViewById(R.id.playBtn);
+        placeBetBtn = (Button) findViewById(R.id.placeBetBtn);
+        stickBtn = (Button) findViewById(R.id.stickBtn);
+        twistBtn = (Button) findViewById(R.id.twistBtn);
+
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
         handValueTv = (TextView) findViewById(R.id.handValueTv);
@@ -35,11 +41,11 @@ public class GameActivity extends AppCompatActivity {
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
-        showFundsTv.setText(newGame.showUserFunds().toString());
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         betPlaced = 0;
         deck = new Deck();
         newGame = new Game(deck);
+        showFundsTv.setText(newGame.showUserFunds().toString());
 
     }
 
@@ -49,8 +55,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_activity);
         initializeVariables();
 
+        stickBtn.setVisibility(View.INVISIBLE);
+        twistBtn.setVisibility(View.INVISIBLE);
+
         selectedBetTv.setText("Bet amount: " + betBar.getProgress() + "/" + betBar.getMax());
 
+        //onSeekBar is used to keep track of the value of the seekBar
 
         betBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
@@ -58,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                Toast.makeText(getApplicationContext(), "Why don't you bet a little bit more?", Toast.LENGTH_SHORT).show();
+                selectedBetTv.setText(Integer.toString(progress));
             }
 
             @Override
@@ -70,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("Bet amount: " + progress + "/" + betBar.getMax());
                 Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
+                betPlaced = progress;
             }
         });
     }
@@ -82,23 +93,15 @@ public class GameActivity extends AppCompatActivity {
     //update round counter
 
 
-    public void startGame(View view) {
-        dealerHandTv.setText("");
-        dealerHandValueTv.setText("");
-        showWinnerTv.setText("");
-        checkBustTv.setText("");
-        showFundsTv.setText(newGame.showUserFunds().toString());
-
-
-        newGame.deal();
-        handDisplayTv.setText(newGame.showUserHand());
-        handValueTv.setText(newGame.showUserHandValue().toString());
-    }
-
 
     public void stick(View view) {
+        placeBetBtn.setVisibility(View.VISIBLE);
+        betBar.setVisibility(View.VISIBLE);
+        stickBtn.setVisibility(View.INVISIBLE);
+        twistBtn.setVisibility(View.INVISIBLE);
+
+
         newGame.stick();
-        betPlaced = 5;
         newGame.placeBet(betPlaced);
 
         //Dealer Move
@@ -114,7 +117,6 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-
     public void twist(View view) {
         newGame.twist();
         handDisplayTv.setText(newGame.showUserHand());
@@ -122,5 +124,24 @@ public class GameActivity extends AppCompatActivity {
         checkBustTv.setText(newGame.displayBust());
 
         //deals new card and displays new result
+    }
+
+    public void placeBet(View view) {
+        betBar.setVisibility(View.INVISIBLE);
+        placeBetBtn.setVisibility(View.INVISIBLE);
+        stickBtn.setVisibility(View.VISIBLE);
+        twistBtn.setVisibility(View.VISIBLE);
+
+
+        dealerHandTv.setText("");
+        dealerHandValueTv.setText("");
+        showWinnerTv.setText("");
+        checkBustTv.setText("");
+        showFundsTv.setText(newGame.showUserFunds().toString());
+
+
+        newGame.deal();
+        handDisplayTv.setText(newGame.showUserHand());
+        handValueTv.setText(newGame.showUserHandValue().toString());
     }
 }
