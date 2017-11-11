@@ -1,5 +1,6 @@
 package com.example.user.blackjackproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,9 @@ public class GameActivity extends AppCompatActivity {
     Button placeBetBtn;
     Button stickBtn;
     Button twistBtn;
+
+    Bundle extras;
+    Integer newFunds;
 
     Game newGame;
     Deck deck;
@@ -47,6 +51,11 @@ public class GameActivity extends AppCompatActivity {
         newGame = new Game(deck);
         showFundsTv.setText(newGame.showUserFunds().toString());
 
+        extras = getIntent().getExtras();
+        newFunds = extras.getInt("newFunds");
+        newGame.setUserFunds(newFunds);
+
+
     }
 
     @Override
@@ -74,13 +83,12 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "PLACE YOUR BET!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("Bet amount: " + progress + "/" + newGame.showUserFunds());
-                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 betPlaced = progress;
             }
         });
@@ -116,6 +124,8 @@ public class GameActivity extends AppCompatActivity {
         newGame.payOut(betPlaced);
         showFundsTv.setText(newGame.showUserFunds().toString());
         betBar.setMax(newGame.showUserFunds());
+        Intent i = new Intent(this, RebuyActivity.class);
+        startActivity(i);
 
     }
 
@@ -147,5 +157,9 @@ public class GameActivity extends AppCompatActivity {
         handValueTv.setText(newGame.showUserHandValue().toString());
 
         betBar.setMax(newGame.showUserFunds());
+    }
+
+    public void setUserFunds(){
+
     }
 }

@@ -49,6 +49,8 @@ public class Game {
 
     public Integer showUserFunds(){ return players.get(0).getFunds(); }
 
+    public void setUserFunds(Integer newAmount){player.setFunds(player.getFunds() + newAmount);}
+
     public String showDealerHand(){
         return this.players.get(1).getHand().describeHand();
     }
