@@ -54,19 +54,22 @@
         app:layout_constraintHorizontal_bias="0.501"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/handValueTv" />
 
     <ImageView
         android:id="@+id/villainImageV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="106dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/background_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.942"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="27dp" />
+        app:layout_constraintVertical_bias="0.117"
+        app:srcCompat="@drawable/villain" />
 
     <TextView
         android:id="@+id/dealerHandDisplayTv"
@@ -80,13 +83,12 @@
         app:layout_constraintHorizontal_bias="0.501"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/villainImageV" />
+        tools:layout_editor_absoluteY="186dp" />
 
     <TextView
         android:id="@+id/handValueTv"
-        android:layout_width="115dp"
-        android:layout_height="54dp"
+        android:layout_width="114dp"
+        android:layout_height="34dp"
         android:fontFamily="casual"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
@@ -105,7 +107,7 @@
         android:id="@+id/dealerHandValueTv"
         android:layout_width="117dp"
         android:layout_height="38dp"
-        android:layout_marginTop="203dp"
+        android:layout_marginTop="209dp"
         android:fontFamily="casual"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -296,5 +298,20 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.806" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="106dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/background_dark"
+        android:fontFamily="cursive"
+        android:text="THE DEALER"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="18dp"
+        tools:layout_editor_absoluteX="262dp"
+        tools:layout_editor_absoluteY="165dp" />
 
 </android.support.constraint.ConstraintLayout>
