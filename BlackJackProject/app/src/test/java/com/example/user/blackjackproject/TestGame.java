@@ -21,7 +21,6 @@ public class TestGame {
     private Dealer player2;
     private Player player1;
     private ArrayList<Participant> players;
-    private Ui ui;
     private Card card1;
     private Card card2;
     private Card card3;
@@ -36,8 +35,7 @@ public class TestGame {
         players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
-        ui = mock(Ui.class);
-        game = new Game(spyDeck, ui);
+        game = new Game(spyDeck);
         card1 = new Card(Suit.DIAMONDS, Rank.FOUR);
         card2 = new Card(Suit.CLUBS, Rank.NINE);
         card3 = new Card(Suit.HEARTS, Rank.SEVEN);

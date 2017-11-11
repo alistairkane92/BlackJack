@@ -17,6 +17,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_activity);
 
+        deck = new Deck();
         newGame = new Game(deck);
         startButton = (Button) findViewById(R.id.playBtn);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
@@ -32,7 +33,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void startGame(View view) {
         newGame.deal();
-        newGame.showUserHand();
-
+        handDisplayTv.setText(newGame.showUserHand());
     }
 }
