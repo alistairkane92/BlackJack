@@ -28,9 +28,15 @@ public class Game {
         return players;
     }
 
-    public void play() {
+    public void deal(){
         dealer.startDealing(this.players, this.deck);
+    }
 
+    public String showUserHand(){
+        return this.players.get(0).getHand().describeHand();
+    }
+
+    public void play() {
 
         for (int i = 0; i < players.size()-1; i++) {
             Participant player = players.get(i);
