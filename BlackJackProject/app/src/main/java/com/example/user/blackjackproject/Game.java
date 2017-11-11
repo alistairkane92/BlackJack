@@ -12,9 +12,8 @@ public class Game {
     private Deck deck;
     private Dealer dealer;
     private ArrayList<Participant> players;
-    private Ui ui;
 
-    public Game(Deck deck, Ui ui) {
+    public Game(Deck deck) {
         this.deck = deck;
         this.dealer = new Dealer("Dealer");
         this.players = new ArrayList<>();
@@ -23,7 +22,6 @@ public class Game {
         players.add(new Player("Player 1"));
         players.add(dealer);
 
-        this.ui = ui;
     }
 
     public ArrayList<Participant> getPlayers() {
@@ -40,9 +38,7 @@ public class Game {
                 player.getHand().makeAcesLowIfBust();
             }
             while (!player.getHand().checkBust() && player.getStickOrTwist().equals("t")) {
-                ui.showDealtCards(player);
-                String answer = ui.askTwistOrStick(player);
-                player.setStickOrTwist(answer);
+                player.setStickOrTwist("t");
 
                 if (player.getStickOrTwist().equals("t")) {
                     dealer.dealCard(player, deck);
@@ -52,15 +48,12 @@ public class Game {
 
 //      Dealer logic
 
-        ui.showDealtCards(dealer);
 
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
-            ui.showDealtCards(dealer);
         }
 
         Participant winner = checkWinner(players);
-        ui.showWinner(winner);
 
     }
 
