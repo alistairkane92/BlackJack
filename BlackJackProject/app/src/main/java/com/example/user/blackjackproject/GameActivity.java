@@ -10,18 +10,21 @@ public class GameActivity extends AppCompatActivity {
     Button startButton;
     Game newGame;
     Deck deck;
-
+    Integer betPlaced;
     TextView handDisplayTv;
     TextView handValueTv;
     TextView dealerHandTv;
     TextView dealerHandValueTv;
     TextView showWinnerTv;
     TextView checkBustTv;
+    TextView showFundsTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_activity);
+        betPlaced = 0;
+
 
         deck = new Deck();
         newGame = new Game(deck);
@@ -32,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
         dealerHandValueTv = (TextView) findViewById(R.id.dealerHandValueTv);
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
+        showFundsTv = (TextView) findViewById(R.id.displayFunds);
+        showFundsTv.setText(newGame.showUserFunds().toString());
+
     }
 
     //steps of Game
@@ -46,11 +52,13 @@ public class GameActivity extends AppCompatActivity {
         dealerHandTv.setText("");
         dealerHandValueTv.setText("");
         showWinnerTv.setText("");
+        checkBustTv.setText("");
+        showFundsTv.setText(newGame.showUserFunds().toString());
+
 
         newGame.deal();
         handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());
-
     }
 
 
@@ -62,6 +70,9 @@ public class GameActivity extends AppCompatActivity {
         dealerHandTv.setText(newGame.showDealerHand());
         dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
         showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
+        betPlaced = 5;
+        newGame.payOut(betPlaced);
+//        showFundsTv.setText(newGame.showUserFunds());
 
     }
 

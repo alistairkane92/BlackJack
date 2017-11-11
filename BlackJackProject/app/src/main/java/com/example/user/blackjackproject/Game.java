@@ -16,10 +16,10 @@ public class Game {
 
     public Game(Deck deck) {
         this.deck = deck;
-        this.dealer = new Dealer("Dealer");
+        this.dealer = new Dealer("Dealer", 1000);
         this.players = new ArrayList<>();
 
-        player = new Player("Player 1");
+        player = new Player("Player 1", 1000);
         players.add(player);
         players.add(dealer);
 
@@ -30,7 +30,7 @@ public class Game {
     }
 
     public void deal(){
-
+        dealer.setMaxDealerFunds();
         dealer.returnCards();
         dealer.resetHandValue();
         player.resetHandValue();
@@ -47,6 +47,8 @@ public class Game {
         return this.players.get(0).getHandValue();
     }
 
+    public Integer showUserFunds(){ return players.get(0).getFunds(); }
+
     public String showDealerHand(){
         return this.players.get(1).getHand().describeHand();
     }
@@ -54,6 +56,8 @@ public class Game {
     public Integer showDealerHandValue(){
         return this.players.get(1).getHand().getHandValue();
     }
+
+
 
     public void stick(){
         //employs dealer logic and continues
@@ -118,6 +122,13 @@ public class Game {
 
     public String displayWinner(){
         return checkWinner(players);
+    }
+
+    public void payOut(Integer betPlaced){
+        Participant player1 = players.get(0);
+        if (checkWinner(players).equals(player1.getName())){
+            player1.setFunds(player1.getFunds() + betPlaced * 2);
+        }
     }
 
 }

@@ -8,12 +8,29 @@ public class Player implements Participant {
     private Hand hand;
     private String name;
     private String stickOrTwist;
+    private Integer funds;
 
-    public Player(String name) {
+    public Player(String name, Integer funds) {
         this.name = name;
         this.hand = new Hand();
         this.stickOrTwist = "t";
+        this.funds = funds;
+    }
 
+    public void pickABetAmount(Integer bet){
+        funds -= bet;
+    }
+
+    public Integer getFunds() {
+        return funds;
+    }
+
+    public void setFunds(Integer funds) {
+        this.funds = funds;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {

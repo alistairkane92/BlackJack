@@ -20,6 +20,10 @@ public interface Participant {
 
     public void setStickOrTwist(String string);
 
+    public void setFunds(Integer newFunds);
+
+    public Integer getFunds();
+
 
 
 }

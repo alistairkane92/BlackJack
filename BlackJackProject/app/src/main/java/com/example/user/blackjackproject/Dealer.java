@@ -9,11 +9,13 @@ import java.util.ArrayList;
 public class Dealer extends Player implements Participant {
 
 
-    public Dealer(String name) {
-        super(name);
-
+    public Dealer(String name, Integer funds) {
+        super(name, funds);
     }
 
+    public void setMaxDealerFunds() {
+        setFunds(1000);
+    }
 
     public void dealCard(Participant player, Deck deck) {
         Card dealtCard = deck.getCard();
