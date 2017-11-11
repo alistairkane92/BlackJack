@@ -61,6 +61,7 @@ public class GameActivity extends AppCompatActivity {
         selectedBetTv.setText("Bet amount: " + betBar.getProgress() + "/" + betBar.getMax());
 
         //onSeekBar is used to keep track of the value of the seekBar
+        betBar.setMax(newGame.showUserFunds());
 
         betBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
@@ -68,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                selectedBetTv.setText(Integer.toString(progress));
+                selectedBetTv.setText("Bet amount: " + Integer.toString(progress) + "/" + newGame.showUserFunds());
             }
 
             @Override
@@ -78,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                selectedBetTv.setText("Bet amount: " + progress + "/" + betBar.getMax());
+                selectedBetTv.setText("Bet amount: " + progress + "/" + newGame.showUserFunds());
                 Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 betPlaced = progress;
             }
@@ -114,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
 
         newGame.payOut(betPlaced);
         showFundsTv.setText(newGame.showUserFunds().toString());
+        betBar.setMax(newGame.showUserFunds());
 
     }
 
@@ -143,5 +145,7 @@ public class GameActivity extends AppCompatActivity {
         newGame.deal();
         handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());
+
+        betBar.setMax(newGame.showUserFunds());
     }
 }
