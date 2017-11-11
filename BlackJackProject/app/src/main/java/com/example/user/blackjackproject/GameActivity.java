@@ -73,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
         yourHandIsTv.setVisibility(View.INVISIBLE);
+        makeRebuyVisibleIfBust();
 
 
         betBar.setMax(newGame.showUserFunds());
@@ -93,12 +94,12 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("Bet amount: " + progress + "/" + newGame.showUserFunds());
+                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 betPlaced = progress;
             }
         });
@@ -111,6 +112,7 @@ public class GameActivity extends AppCompatActivity {
             stickBtn.setVisibility(View.INVISIBLE);
             twistBtn.setVisibility(View.INVISIBLE);
             handDisplayTv.setVisibility(View.INVISIBLE);
+            placeBetBtn.setVisibility(View.INVISIBLE);
         }
     }
 
