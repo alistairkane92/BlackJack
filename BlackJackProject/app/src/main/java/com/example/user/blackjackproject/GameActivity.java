@@ -30,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     TextView checkBustTv;
     TextView showFundsTv;
     TextView selectedBetTv;
+    TextView yourHandIsTv;
 
     SeekBar betBar;
 
@@ -48,6 +49,8 @@ public class GameActivity extends AppCompatActivity {
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
+        yourHandIsTv = (TextView) findViewById(R.id.yourHandIsTv);
+
         betPlaced = 0;
         newFunds = 0;
 
@@ -69,6 +72,7 @@ public class GameActivity extends AppCompatActivity {
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
+        yourHandIsTv.setVisibility(View.INVISIBLE);
 
 
         betBar.setMax(newGame.showUserFunds());
@@ -100,38 +104,26 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    //steps of Game
-    //startGame button should display user hand
-    //user then picks stick or twist button
-    //dealer logic gets carried out and we see their cards
-    //show results win loss
-    //update round counter
-
 
     public void makeRebuyVisibleIfBust(){
-        if (newGame.showUserFunds() < 0){
+        if (newGame.showUserFunds() <= 0){
             rebuyBtn.setVisibility(View.VISIBLE);
             stickBtn.setVisibility(View.INVISIBLE);
             twistBtn.setVisibility(View.INVISIBLE);
             handDisplayTv.setVisibility(View.INVISIBLE);
-
-
-
         }
     }
 
-    public void stick(View view) {
+    public void endOfRoundViews(){
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
+        selectedBetTv.setVisibility(View.VISIBLE);
+
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
         handValueTv.setVisibility(View.INVISIBLE);
-
-
-
-        newGame.stick();
-        newGame.placeBet(betPlaced);
-
+    }
+    public void dealerMove(){
         //Dealer Move
         newGame.dealerMove();
 
@@ -148,19 +140,43 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    public void stick(View view) {
+        placeBetBtn.setVisibility(View.VISIBLE);
+        betBar.setVisibility(View.VISIBLE);
+        selectedBetTv.setVisibility(View.VISIBLE);
+
+        stickBtn.setVisibility(View.INVISIBLE);
+        twistBtn.setVisibility(View.INVISIBLE);
+        handValueTv.setVisibility(View.INVISIBLE);
+
+        dealerMove();
+        endOfRoundViews();
+    }
+
     public void twist(View view) {
         newGame.twist();
         handDisplayTv.setText(newGame.showUserHand());
-        handValueTv.setText(Integer.toString(newGame.showUserFunds()));
+        handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
         checkBustTv.setText(newGame.displayBust());
+
+        if (newGame.displayBust().equals("You're BUST!")){
+            dealerMove();
+            endOfRoundViews();
+        }
+
         //deals new card and displays new result
+        //if bust needs to do dealer logic anyway
     }
 
     public void placeBet(View view) {
+        newGame.placeBet(betPlaced);
         betBar.setVisibility(View.INVISIBLE);
         placeBetBtn.setVisibility(View.INVISIBLE);
+        selectedBetTv.setVisibility(View.INVISIBLE);
+
         stickBtn.setVisibility(View.VISIBLE);
         twistBtn.setVisibility(View.VISIBLE);
+        handValueTv.setVisibility(View.VISIBLE);
 
 
         dealerHandTv.setText("");
@@ -175,5 +191,10 @@ public class GameActivity extends AppCompatActivity {
         handValueTv.setText(newGame.showUserHandValue().toString());
 
         betBar.setMax(newGame.showUserFunds());
+    }
+
+    public void reBuyPage(View view) {
+        Intent i = new Intent(this, RebuyActivity.class);
+        startActivity(i);
     }
 }

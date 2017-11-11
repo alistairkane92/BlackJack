@@ -60,12 +60,6 @@ public class Game {
     }
 
 
-
-    public void stick(){
-        //employs dealer logic and continues
-        dealerMove();
-    }
-
     public void twist(){
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
@@ -131,7 +125,8 @@ public class Game {
     // BET LOGIC
 
     public void placeBet(Integer betAmount){
-        player.setFunds(player.getFunds() - betAmount);
+        Integer newFunds = player.getFunds() - betAmount;
+        player.setFunds(newFunds);
     }
 
     public void payOut(Integer betPlaced){
