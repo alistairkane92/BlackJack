@@ -12,14 +12,15 @@ public class Game {
     private Deck deck;
     private Dealer dealer;
     private ArrayList<Participant> players;
+    private Player player;
 
     public Game(Deck deck) {
         this.deck = deck;
         this.dealer = new Dealer("Dealer");
         this.players = new ArrayList<>();
 
-
-        players.add(new Player("Player 1"));
+        player = new Player("Player 1");
+        players.add(player);
         players.add(dealer);
 
     }
@@ -29,6 +30,11 @@ public class Game {
     }
 
     public void deal(){
+        dealer.returnCards();
+        dealer.resetHandValue();
+        player.resetHandValue();
+        player.returnCards();
+
         dealer.startDealing(this.players, this.deck);
     }
 
@@ -49,14 +55,21 @@ public class Game {
     }
 
     public void stick(){
-        players.get(0).setStickOrTwist("f");
         //employs dealer logic and continues
         dealerMove();
     }
 
     public void twist(){
-        players.get(0).setStickOrTwist("t");
         //deals player another card and display new result
+        dealer.dealCard(players.get(0), deck);
+    }
+
+    public String displayBust(){
+        if (players.get(0).getHand().checkBust()){
+            return "You're BUST!";
+        } else {
+            return " ";
+        }
     }
 
     public void stickOrTwistAction() {
@@ -82,7 +95,6 @@ public class Game {
             dealer.dealCard(dealer, deck);
         }
     }
-
 
 
     public String checkWinner(ArrayList<Participant> players) {

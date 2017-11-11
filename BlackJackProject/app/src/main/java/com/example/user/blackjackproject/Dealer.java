@@ -29,8 +29,8 @@ public class Dealer extends Player implements Participant {
         }
     }
 
-    public boolean checkShouldTwist(int hand) {
-        return hand < 16;
+    public boolean checkShouldTwist(int handValue) {
+        return handValue < 16;
     }
 
 }

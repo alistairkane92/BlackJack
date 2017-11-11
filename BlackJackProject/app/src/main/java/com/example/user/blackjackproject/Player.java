@@ -32,6 +32,14 @@ public class Player implements Participant {
         return stickOrTwist;
     }
 
+    public void returnCards(){
+        this.hand.emptyHand();
+    }
+
+    public void resetHandValue(){
+        this.hand.emptyValues();
+    }
+
     @Override
     public int getHandValue() {
         return this.hand.getHandValue();
@@ -47,5 +55,7 @@ public class Player implements Participant {
         String cardsInHand = "\n" + this.name + " ";
         return cardsInHand + hand.describeHand();
     }
+
+
 
 }

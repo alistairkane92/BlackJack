@@ -17,6 +17,10 @@ public class Hand {
         value = 0;
     }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -75,6 +79,14 @@ public class Hand {
             this.value -= 10;
             aceCounter--;
         }
+    }
+
+    public void emptyHand(){
+        cards.clear();
+    }
+
+    public void emptyValues(){
+        setValue(0);
     }
 }
 
