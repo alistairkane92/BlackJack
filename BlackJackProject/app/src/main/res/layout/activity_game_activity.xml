@@ -28,6 +28,7 @@
         android:layout_marginBottom="29dp"
         android:layout_marginRight="70dp"
         android:text="twist"
+        android:onClick="twist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -39,6 +40,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Stick"
+        android:onClick="stick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -102,4 +104,14 @@
         app:layout_constraintTop_toBottomOf="@+id/villainImageV"
         app:layout_constraintVertical_bias="0.185"
         tools:text="DealerHandDisplay" />
+
+    <TextView
+        android:id="@+id/handValueTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="handValue"
+        android:layout_marginRight="65dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="168dp" />
 </android.support.constraint.ConstraintLayout>

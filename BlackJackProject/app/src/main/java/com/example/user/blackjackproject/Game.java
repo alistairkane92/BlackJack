@@ -36,8 +36,21 @@ public class Game {
         return this.players.get(0).getHand().describeHand();
     }
 
-    public void play() {
+    public Integer showUserHandValue(){
+        return this.players.get(0).getHandValue();
+    }
 
+    public void stick(){
+        players.get(0).setStickOrTwist("f");
+        //employs dealer logic and continues
+    }
+
+    public void twist(){
+        players.get(0).setStickOrTwist("t");
+        //deals player another card and display new result
+    }
+
+    public void stickOrTwistAction() {
         for (int i = 0; i < players.size()-1; i++) {
             Participant player = players.get(i);
             if (player.getHand().checkIfAce()){

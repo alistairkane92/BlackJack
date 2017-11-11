@@ -37,7 +37,6 @@ public class Player implements Participant {
         return this.hand.getHandValue();
     }
 
-
     @Override
     public void addCardToHand(Card card) {
         this.hand.addCard(card);

@@ -11,6 +11,7 @@ public class GameActivity extends AppCompatActivity {
     Game newGame;
     Deck deck;
     TextView handDisplayTv;
+    TextView handValueTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class GameActivity extends AppCompatActivity {
         newGame = new Game(deck);
         startButton = (Button) findViewById(R.id.playBtn);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
+        handValueTv = (TextView) findViewById(R.id.handValueTv);
     }
 
     //steps of Game
@@ -34,5 +36,16 @@ public class GameActivity extends AppCompatActivity {
     public void startGame(View view) {
         newGame.deal();
         handDisplayTv.setText(newGame.showUserHand());
+        handValueTv.setText(newGame.showUserHandValue().toString());
+
+    }
+
+
+    public void stick(View view) {
+
+    }
+
+
+    public void twist(View view) {
     }
 }
