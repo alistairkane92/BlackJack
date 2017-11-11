@@ -61,6 +61,10 @@ public class GameActivity extends AppCompatActivity {
         newFunds = extras.getInt("newFunds");
         newGame.setUserFunds(newFunds);
 
+        String newName = extras.getString("name");
+        newGame.setUserName(newName);
+
+
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
 
@@ -74,7 +78,6 @@ public class GameActivity extends AppCompatActivity {
         twistBtn.setVisibility(View.INVISIBLE);
         yourHandIsTv.setVisibility(View.INVISIBLE);
         makeRebuyVisibleIfBust();
-
 
         betBar.setMax(newGame.showUserFunds());
 

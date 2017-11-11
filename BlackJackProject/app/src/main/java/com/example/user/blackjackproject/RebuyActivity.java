@@ -10,11 +10,16 @@ import android.widget.EditText;
 public class RebuyActivity extends AppCompatActivity {
     EditText rebuyAmount;
     Button rebuyBtn;
+    Bundle extras;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rebuy);
+
+        extras = getIntent().getExtras();
+        name = extras.getString("name");
 
         rebuyAmount = (EditText) findViewById(R.id.buyInAmountEt);
         rebuyBtn = (Button) findViewById(R.id.buyInBtn);
@@ -23,6 +28,7 @@ public class RebuyActivity extends AppCompatActivity {
     public void goToGame(View view) {
         Intent i = new Intent(this, GameActivity.class);
         Integer reBuy = Integer.parseInt(rebuyAmount.getText().toString());
+        i.putExtra("name", name);
         i.putExtra("newFunds", reBuy);
         startActivity(i);
     }

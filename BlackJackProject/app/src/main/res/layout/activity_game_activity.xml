@@ -21,7 +21,7 @@
         android:layout_marginEnd="43dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.768"
+        app:layout_constraintHorizontal_bias="0.867"
         android:layout_marginStart="8dp" />
 
     <Button
@@ -100,54 +100,71 @@
         app:layout_constraintHorizontal_bias="0.498"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        tools:layout_editor_absoluteY="85dp" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/villainImageV"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/dealerHandValueTv"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/handValueTv"
-        android:layout_width="83dp"
-        android:layout_height="45dp"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
         android:fontFamily="casual"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="sans"
-        tools:text="handValue"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        app:layout_constraintVertical_bias="0.588"
+        tools:text="handValue"
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <TextView
         android:id="@+id/dealerHandValueTv"
         android:layout_width="99dp"
         android:layout_height="55dp"
         android:fontFamily="casual"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="sans"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304"
-        tools:text="dealerHandValue" />
+        tools:text="dealerHandValue"
+        app:layout_constraintHorizontal_bias="0.501"
+        android:layout_marginTop="169dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/showWinnerTv"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/showWinnerTv"
         android:layout_width="359dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="229dp"
+        android:layout_marginTop="224dp"
         android:fontFamily="casual"
         android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/handValueTv"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="showWinner" />
 
     <TextView
