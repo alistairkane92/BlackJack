@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     TextView checkBustTv;
     TextView showFundsTv;
     TextView selectedBetTv;
-    TextView yourHandIsTv;
+    TextView name;
 
     SeekBar betBar;
 
@@ -49,7 +49,7 @@ public class GameActivity extends AppCompatActivity {
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
-        yourHandIsTv = (TextView) findViewById(R.id.yourHandIsTv);
+        name = (TextView) findViewById(R.id.nameTv);
 
         betPlaced = 0;
         newFunds = 0;
@@ -63,7 +63,7 @@ public class GameActivity extends AppCompatActivity {
 
         String newName = extras.getString("name");
         newGame.setUserName(newName);
-
+        name.setText(newName);
 
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
@@ -76,7 +76,6 @@ public class GameActivity extends AppCompatActivity {
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
-        yourHandIsTv.setVisibility(View.INVISIBLE);
         makeRebuyVisibleIfBust();
 
         betBar.setMax(newGame.showUserFunds());
@@ -126,7 +125,6 @@ public class GameActivity extends AppCompatActivity {
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
-        handValueTv.setVisibility(View.INVISIBLE);
 
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
         betBar.setMax(newGame.showUserFunds());

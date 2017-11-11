@@ -16,7 +16,7 @@ public class Game {
 
     public Game(Deck deck) {
         this.deck = deck;
-        this.dealer = new Dealer("Dealer", 0);
+        this.dealer = new Dealer("DEALER", 0);
         this.players = new ArrayList<>();
         this.player = new Player("Player 1", 0);
 

@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class IntroActivity extends AppCompatActivity {
 
     Button goToMain;
-    Bundle extras;
     TextView name;
 
     @Override
@@ -19,12 +18,13 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         name = (TextView) findViewById(R.id.nameTv);
-        goToMain = (Button) findViewById(R.id.button);
+        goToMain = (Button) findViewById(R.id.goToMain);
     }
 
     public void goToMain(View view) {
         Intent i = new Intent(this, RebuyActivity.class);
-        i.putExtra("name", RebuyActivity.class);
+        String passableName = name.getText().toString().toUpperCase();
+        i.putExtra("name", passableName);
         startActivity(i);
     }
 }

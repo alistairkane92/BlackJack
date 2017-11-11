@@ -27,7 +27,7 @@ public class RebuyActivity extends AppCompatActivity {
 
     public void goToGame(View view) {
         Intent i = new Intent(this, GameActivity.class);
-        Integer reBuy = Integer.parseInt(rebuyAmount.getText().toString());
+        Integer reBuy = Integer.parseInt(rebuyAmount.getText().toString().toUpperCase());
         i.putExtra("name", name);
         i.putExtra("newFunds", reBuy);
         startActivity(i);

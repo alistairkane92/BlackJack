@@ -69,7 +69,7 @@ public class Player implements Participant {
 
     @Override
     public String describeHand() {
-        String cardsInHand = "\n" + this.name + " ";
+        String cardsInHand = "\n" + " ";
         return cardsInHand + hand.describeHand();
     }
 
