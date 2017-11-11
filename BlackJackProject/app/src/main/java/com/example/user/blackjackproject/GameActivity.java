@@ -114,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void endOfRoundViews(){
+    public void endOfRound(){
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
@@ -122,6 +122,12 @@ public class GameActivity extends AppCompatActivity {
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
         handValueTv.setVisibility(View.INVISIBLE);
+
+        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
+        betBar.setMax(newGame.showUserFunds());
+
+        makeRebuyVisibleIfBust();
+
     }
     public void dealerMove(){
         //Dealer Move
@@ -133,11 +139,6 @@ public class GameActivity extends AppCompatActivity {
         showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 
         newGame.payOut(betPlaced);
-        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
-        betBar.setMax(newGame.showUserFunds());
-
-        makeRebuyVisibleIfBust();
-
     }
 
     public void stick(View view) {
@@ -147,10 +148,9 @@ public class GameActivity extends AppCompatActivity {
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
-        handValueTv.setVisibility(View.INVISIBLE);
 
         dealerMove();
-        endOfRoundViews();
+        endOfRound();
     }
 
     public void twist(View view) {
@@ -161,7 +161,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (newGame.displayBust().equals("You're BUST!")){
             dealerMove();
-            endOfRoundViews();
+            endOfRound();
         }
 
         //deals new card and displays new result
