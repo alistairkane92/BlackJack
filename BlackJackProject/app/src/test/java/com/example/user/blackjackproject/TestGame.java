@@ -75,5 +75,36 @@ public class TestGame {
         game.setUserFunds(50);
         assertEquals(50, game.showUserFunds());
     }
+
+    @Test
+    public void testCheckDraw() throws Exception {
+        player1.addCardToHand(card1);
+        player1.addCardToHand(card1);
+        player1.addCardToHand(card1);
+        player1.addCardToHand(card1);
+
+        player2.addCardToHand(card1);
+        player2.addCardToHand(card1);
+        player2.addCardToHand(card1);
+        player2.addCardToHand(card1);
+
+        assertEquals(16, player1.getHandValue());
+        assertEquals(16, player2.getHandValue());
+
+        assertEquals(true, game.checkIfDrawDealerWins(players));
+        assertEquals("Dealer", game.checkWinner(players));
+    }
+
+    @Test
+    public void testCheckDrawExceptions() throws Exception {
+        player1.addCardToHand(card4);
+        player1.addCardToHand(card4);
+        player1.addCardToHand(card4);
+
+        player2.addCardToHand(card4);
+        player2.addCardToHand(card4);
+        player2.addCardToHand(card4);
+        assertEquals("Dealer", game.checkWinner(players));
+    }
 }
 

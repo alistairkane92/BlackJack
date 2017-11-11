@@ -97,11 +97,23 @@ public class Game {
         }
     }
 
+//     && dealer.getHandValue() <= 21
+
+    public boolean checkIfDrawDealerWins(ArrayList<Participant> players){
+        if (players.get(0).getHandValue() == players.get(1).getHandValue() && players.get(1).getHandValue() >= 16 && players.get(1).getHandValue() <= 21){
+            return true;
+        } else return false;
+    }
+
 //  Winner
 
     public String checkWinner(ArrayList<Participant> players) {
         Participant player1 = players.get(0);
         Participant player2 = players.get(1);
+
+        if (checkIfDrawDealerWins(players)){
+            return player2.getName();
+        }
 
         if (!player1.getHand().checkBust() && !player2.getHand().checkBust()) {
             if (player1.getHandValue() == player2.getHandValue()) {
