@@ -176,7 +176,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <SeekBar
-        android:id="@+id/pickABetSB"
+        android:id="@+id/pickABetSb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
@@ -188,35 +188,37 @@
         app:layout_constraintVertical_bias="0.948"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.851" />
+        app:layout_constraintHorizontal_bias="0.851"
+        android:max="1000"/>
 
     <TextView
-        android:id="@+id/showSelectedBetTV"
+        android:id="@+id/selectedBetTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="selected"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.801"
+        tools:text="selected" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="34dp"
+        android:layout_height="15dp"
         android:layout_marginBottom="211dp"
-        android:layout_marginRight="63dp"
+        android:layout_marginRight="62dp"
         android:text="Funds"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.996" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="288dp" />
 
 </android.support.constraint.ConstraintLayout>
