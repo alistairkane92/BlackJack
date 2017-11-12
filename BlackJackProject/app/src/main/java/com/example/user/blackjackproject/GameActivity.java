@@ -1,9 +1,7 @@
 package com.example.user.blackjackproject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +12,26 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+
 
 public class GameActivity extends AppCompatActivity {
-    ImageView imageView;
+    ImageView camera;
+
+    ImageView userCard1;
+    ImageView userCard2;
+    ImageView dealerCard1;
+    ImageView dealerCard2;
+
+    ImageView dealerCard1Suit1;
+    ImageView dealerCard1Suit2;
+    ImageView dealerCard2Suit1;
+    ImageView dealerCard2Suit2;
+
+    ImageView userCard1Suit1;
+    ImageView userCard1Suit2;
+    ImageView userCard2Suit1;
+    ImageView userCard2Suit2;
+
 
     Button placeBetBtn;
     Button stickBtn;
@@ -47,11 +59,32 @@ public class GameActivity extends AppCompatActivity {
     SeekBar betBar;
 
     private void initializeVariables(){
+
+        //buttons
         placeBetBtn = (Button) findViewById(R.id.placeBetBtn);
         stickBtn = (Button) findViewById(R.id.stickBtn);
         twistBtn = (Button) findViewById(R.id.twistBtn);
         rebuyBtn = (Button) findViewById(R.id.rebuyButton);
         btnCamera = (Button) findViewById(R.id.btnCapture);
+
+        //card imageviews
+        userCard1 = (ImageView) findViewById(R.id.userCard1);
+        userCard2 = (ImageView) findViewById(R.id.userCard2);
+        dealerCard1 = (ImageView) findViewById(R.id.dealerCard1);
+        dealerCard2 = (ImageView) findViewById(R.id.dealerCard2);
+
+        //card suit imageviews
+        userCard1Suit1 = (ImageView) findViewById(R.id.card1suit1);
+        userCard1Suit2 = (ImageView) findViewById(R.id.card1suit2);
+        userCard1Suit1 = (ImageView) findViewById(R.id.card2suit1);
+        userCard1Suit2 = (ImageView) findViewById(R.id.card2suit2);
+
+        dealerCard1Suit1 = (ImageView) findViewById(R.id.dealercard1suit1);
+        dealerCard1Suit2 = (ImageView) findViewById(R.id.dealercard1suit2);
+        dealerCard2Suit1 = (ImageView) findViewById(R.id.dealercard2suit1);
+        dealerCard2Suit2 = (ImageView) findViewById(R.id.dealercard2suit2);
+
+
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
@@ -63,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         name = (TextView) findViewById(R.id.nameTv);
-        imageView = (ImageView) findViewById((R.id.imageView));
+        camera = (ImageView) findViewById((R.id.imageView));
 
         betPlaced = 0;
         newFunds = 0;
@@ -133,7 +166,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
+        camera.setImageBitmap(bitmap);
     }
 
     public void makeRebuyVisibleIfBust(){
