@@ -127,6 +127,12 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
 
+//    public void changeCardViewIfCardValueIsSymbol(){
+//        if (newGame.getPlayers().get(0).getHand().getCards().get(0).getRank().equals("Jack") && newGame.getPlayers().get(0).getHand().getCards().get(0).getSuit().equals(Suit.CLUBS) || newGame.getPlayers().get(0).getHand().getCards().get(0).getSuit().equals(Suit.SPADES)){
+//            userCard1.setImageResource(R.drawable.Jb);
+//        } else if
+/// /    }
+
     public void makeCardSuitsInvisible(){
         userCard1Suit1.setVisibility(View.INVISIBLE);
         userCard1Suit2.setVisibility(View.INVISIBLE);
@@ -183,7 +189,7 @@ public class GameActivity extends AppCompatActivity {
 
         betBar.setMax(newGame.showUserFunds());
 
-        selectedBetTv.setText("Bet amount: " + betBar.getProgress() + "/" + betBar.getMax());
+        selectedBetTv.setText(betBar.getProgress() + "/" + betBar.getMax());
 
         //onSeekBar is used to keep track of the value of the seekBar
 
@@ -194,7 +200,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                selectedBetTv.setText("Bet amount: " + Integer.toString(progress) + "/" + newGame.showUserFunds());
+                selectedBetTv.setText(Integer.toString(progress) + "/" + newGame.showUserFunds());
             }
 
             @Override
@@ -203,7 +209,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                selectedBetTv.setText("Bet amount: " + progress + "/" + newGame.showUserFunds());
+                selectedBetTv.setText(+ progress + "/" + newGame.showUserFunds());
                 Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 betPlaced = progress;
             }
