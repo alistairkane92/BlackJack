@@ -1,19 +1,31 @@
 package com.example.user.blackjackproject;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class GameActivity extends AppCompatActivity {
+    ImageView imageView;
+
     Button placeBetBtn;
     Button stickBtn;
     Button twistBtn;
     Button rebuyBtn;
+    Button btnCamera;
 
     Bundle extras;
     Integer newFunds;
@@ -39,6 +51,7 @@ public class GameActivity extends AppCompatActivity {
         stickBtn = (Button) findViewById(R.id.stickBtn);
         twistBtn = (Button) findViewById(R.id.twistBtn);
         rebuyBtn = (Button) findViewById(R.id.rebuyButton);
+        btnCamera = (Button) findViewById(R.id.btnCapture);
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
@@ -50,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         name = (TextView) findViewById(R.id.nameTv);
+        imageView = (ImageView) findViewById((R.id.imageView));
 
         betPlaced = 0;
         newFunds = 0;
@@ -73,6 +87,14 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_activity);
         initializeVariables();
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+          public void onClick(View view){
+              Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+              startActivityForResult(intent, 0);
+
+          }
+        });
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
@@ -107,6 +129,12 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+        imageView.setImageBitmap(bitmap);
+    }
 
     public void makeRebuyVisibleIfBust(){
         if (newGame.showUserFunds() <= 0){
@@ -204,4 +232,5 @@ public class GameActivity extends AppCompatActivity {
         Intent i = new Intent(this, RebuyActivity.class);
         startActivity(i);
     }
+
 }

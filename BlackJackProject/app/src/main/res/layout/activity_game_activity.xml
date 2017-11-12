@@ -21,24 +21,25 @@
         android:layout_marginEnd="43dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintHorizontal_bias="0.991"
         android:layout_marginStart="8dp" />
 
     <Button
         android:id="@+id/stickBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stick"
-        android:onClick="stick"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/twistBtn"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.867"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:onClick="stick"
+        android:soundEffectsEnabled="?android:attr/windowActionBar"
+        android:text="Stick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/twistBtn" />
 
     <TextView
         android:id="@+id/handDisplayTv"
@@ -51,25 +52,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.467"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/handValueTv" />
-
-    <ImageView
-        android:id="@+id/villainImageV"
-        android:layout_width="106dp"
-        android:layout_height="112dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.942"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117"
-        app:srcCompat="@drawable/villain" />
+        app:layout_constraintTop_toBottomOf="@+id/handValueTv"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/dealerHandDisplayTv"
@@ -83,7 +70,9 @@
         app:layout_constraintHorizontal_bias="0.501"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        tools:layout_editor_absoluteY="186dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
 
     <TextView
         android:id="@+id/handValueTv"
@@ -123,8 +112,8 @@
 
     <TextView
         android:id="@+id/showWinnerTv"
-        android:layout_width="359dp"
-        android:layout_height="45dp"
+        android:layout_width="354dp"
+        android:layout_height="44dp"
         android:background="@android:color/background_dark"
         android:fontFamily="casual"
         android:text="Place a Bet to Start!"
@@ -136,7 +125,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="showWinner" />
+        tools:text="showWinner"
+        app:layout_constraintHorizontal_bias="0.523"
+        tools:layout_editor_absoluteY="233dp"
+        tools:layout_editor_absoluteX="-11dp" />
 
     <TextView
         android:id="@+id/checkBustTv"
@@ -258,30 +250,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.94" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="82dp"
-        android:layout_height="79dp"
-        app:srcCompat="@android:drawable/star_big_on"
-        app:layout_constraintRight_toLeftOf="@+id/stickBtn"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintHorizontal_bias="0.727"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/nameTv"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-
     <TextView
         android:id="@+id/nameTv"
         android:layout_width="82dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_height="29dp"
         android:background="@android:color/black"
         android:backgroundTint="@android:color/background_dark"
         android:lineSpacingExtra="0sp"
@@ -289,29 +261,57 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/rebuyButton"
         tools:text="name"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806" />
+        app:layout_constraintVertical_bias="0.639"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.052" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="106dp"
         android:layout_height="26dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:background="@android:color/background_dark"
         android:fontFamily="cursive"
         android:text="THE DEALER"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="18dp"
-        tools:layout_editor_absoluteX="262dp"
-        tools:layout_editor_absoluteY="165dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <Button
+        android:id="@+id/btnCapture"
+        android:layout_width="88dp"
+        android:layout_height="54dp"
+        android:text="show me what you got"
+        android:textSize="6sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.964"
+        app:layout_constraintRight_toLeftOf="@+id/stickBtn"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="85dp"
+        android:layout_height="108dp"
+        android:layout_marginBottom="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv"
+        app:layout_constraintVertical_bias="0.238"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.053" />
 
 </android.support.constraint.ConstraintLayout>
