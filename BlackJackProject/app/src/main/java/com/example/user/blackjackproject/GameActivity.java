@@ -134,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_activity);
 
         initializeVariables();
-        makeCardSuitsInvisible();
+//        makeCardSuitsInvisible();
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view){
@@ -212,6 +212,39 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
+
+    public void displayUserCardOne(){
+        if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(1)){
+            userCard1Suit1.setImageResource(R.drawable.heart);
+            userCard1Suit2.setImageResource(R.drawable.heart);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(2)){
+            userCard1Suit1.setImageResource(R.drawable.diamond);
+            userCard1Suit2.setImageResource(R.drawable.diamond);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(3)) {
+            userCard1Suit1.setImageResource(R.drawable.club);
+            userCard1Suit2.setImageResource(R.drawable.club);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(4)) {
+            userCard1Suit1.setImageResource(R.drawable.spade);
+            userCard1Suit2.setImageResource(R.drawable.spade);
+        }
+    }
+
+    public void displayUserCardTwo(){
+        if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(1)){
+            userCard2Suit1.setImageResource(R.drawable.heart);
+            userCard2Suit2.setImageResource(R.drawable.heart);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(2)){
+            userCard2Suit1.setImageResource(R.drawable.diamond);
+            userCard2Suit2.setImageResource(R.drawable.diamond);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(3)) {
+            userCard2Suit1.setImageResource(R.drawable.club);
+            userCard2Suit2.setImageResource(R.drawable.club);
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(4)) {
+            userCard2Suit1.setImageResource(R.drawable.spade);
+            userCard2Suit2.setImageResource(R.drawable.spade);
+        }
+    }
+
     public void dealerMove(){
         //Dealer Move
         newGame.dealerMove();
@@ -270,6 +303,9 @@ public class GameActivity extends AppCompatActivity {
 
 
         newGame.deal();
+        displayUserCardOne();
+        displayUserCardTwo();
+
         handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());
 
