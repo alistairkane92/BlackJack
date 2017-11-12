@@ -128,13 +128,28 @@ public class GameActivity extends AppCompatActivity {
         dealerCard2Suit2.setVisibility(View.INVISIBLE);
     }
 
+    public void makeCardsVisible(){
+        userCard1Suit1.setVisibility(View.VISIBLE);
+        userCard1Suit2.setVisibility(View.VISIBLE);
+        userCard2Suit1.setVisibility(View.VISIBLE);
+        userCard2Suit2.setVisibility(View.VISIBLE);
+
+        dealerCard1Suit1.setVisibility(View.VISIBLE);
+        dealerCard1Suit2.setVisibility(View.VISIBLE);
+    }
+
+    public void revealDealerCard(){
+        dealerCard2Suit1.setVisibility(View.VISIBLE);
+        dealerCard2Suit2.setVisibility(View.VISIBLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_activity);
 
         initializeVariables();
-//        makeCardSuitsInvisible();
+        makeCardSuitsInvisible();
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view){
@@ -214,39 +229,71 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void displayUserCardOne(){
-        if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(1)){
+        if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage() == 1){
             userCard1Suit1.setImageResource(R.drawable.heart);
             userCard1Suit2.setImageResource(R.drawable.heart);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(2)){
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage() == 2){
             userCard1Suit1.setImageResource(R.drawable.diamond);
             userCard1Suit2.setImageResource(R.drawable.diamond);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(3)) {
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage() == 3){
             userCard1Suit1.setImageResource(R.drawable.club);
             userCard1Suit2.setImageResource(R.drawable.club);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage().equals(4)) {
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage() == 4){
             userCard1Suit1.setImageResource(R.drawable.spade);
             userCard1Suit2.setImageResource(R.drawable.spade);
         }
     }
 
     public void displayUserCardTwo(){
-        if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(1)){
+        if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage() == 1){
             userCard2Suit1.setImageResource(R.drawable.heart);
             userCard2Suit2.setImageResource(R.drawable.heart);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(2)){
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage() == 2){
             userCard2Suit1.setImageResource(R.drawable.diamond);
             userCard2Suit2.setImageResource(R.drawable.diamond);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(3)) {
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage() == 3) {
             userCard2Suit1.setImageResource(R.drawable.club);
             userCard2Suit2.setImageResource(R.drawable.club);
-        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage().equals(4)) {
+        } else if (newGame.getPlayers().get(0).getHand().getCards().get(1).getSuitImage() == 4) {
             userCard2Suit1.setImageResource(R.drawable.spade);
             userCard2Suit2.setImageResource(R.drawable.spade);
         }
     }
 
+    public void displayDealerCardOne(){
+        if (newGame.getPlayers().get(1).getHand().getCards().get(0).getSuitImage() == 1){
+            dealerCard1Suit1.setImageResource(R.drawable.heart);
+            dealerCard1Suit2.setImageResource(R.drawable.heart);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(0).getSuitImage() == 2){
+            dealerCard1Suit1.setImageResource(R.drawable.diamond);
+            dealerCard1Suit2.setImageResource(R.drawable.diamond);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(0).getSuitImage() == 3) {
+            dealerCard1Suit1.setImageResource(R.drawable.club);
+            dealerCard1Suit2.setImageResource(R.drawable.club);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(0).getSuitImage() == 4) {
+            dealerCard1Suit1.setImageResource(R.drawable.spade);
+            dealerCard1Suit2.setImageResource(R.drawable.spade);
+        }
+    }
+
+    public void displayDealerCardTwo(){
+        if (newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage() == 1){
+            dealerCard2Suit1.setImageResource(R.drawable.heart);
+            dealerCard2Suit2.setImageResource(R.drawable.heart);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage() == 2){
+            dealerCard2Suit1.setImageResource(R.drawable.diamond);
+            dealerCard2Suit2.setImageResource(R.drawable.diamond);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage() == 3) {
+            dealerCard2Suit1.setImageResource(R.drawable.club);
+            dealerCard2Suit2.setImageResource(R.drawable.club);
+        } else if (newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage() == 4) {
+            dealerCard2Suit1.setImageResource(R.drawable.spade);
+            dealerCard2Suit2.setImageResource(R.drawable.spade);
+        }
+    }
     public void dealerMove(){
         //Dealer Move
+        revealDealerCard();
         newGame.dealerMove();
 
         //update Views
@@ -303,8 +350,10 @@ public class GameActivity extends AppCompatActivity {
 
 
         newGame.deal();
+        makeCardsVisible();
         displayUserCardOne();
         displayUserCardTwo();
+        displayDealerCardOne();
 
         handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());

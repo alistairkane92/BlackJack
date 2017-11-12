@@ -8,15 +8,15 @@ public class Card {
 
         private Suit suit;
         private Rank rank;
-        private Suit image;
+        private int image;
 
-        public Card(Suit suit, Rank rank, Suit image){
+        public Card(Suit suit, Rank rank, int image){
             this.suit = suit;
             this.rank = rank;
             this.image = image;
         }
 
-        public Suit getSuitImage(){ return image;}
+        public int getSuitImage(){ return image;}
 
         public Suit getSuit() {
             return suit;

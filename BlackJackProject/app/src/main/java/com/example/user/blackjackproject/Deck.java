@@ -24,7 +24,7 @@ public class Deck {
     private void generateDeck(){
         for(Suit suit : Suit.values()){
             for(Rank rank : Rank.values()){
-                cards.add(new Card(suit, rank));
+                cards.add(new Card(suit, rank, suit.getImage()));
             }
         }
     }
