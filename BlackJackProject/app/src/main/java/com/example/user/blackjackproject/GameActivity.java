@@ -76,8 +76,8 @@ public class GameActivity extends AppCompatActivity {
         //card suit imageviews
         userCard1Suit1 = (ImageView) findViewById(R.id.card1suit1);
         userCard1Suit2 = (ImageView) findViewById(R.id.card1suit2);
-        userCard1Suit1 = (ImageView) findViewById(R.id.card2suit1);
-        userCard1Suit2 = (ImageView) findViewById(R.id.card2suit2);
+        userCard2Suit1 = (ImageView) findViewById(R.id.card2suit1);
+        userCard2Suit2 = (ImageView) findViewById(R.id.card2suit2);
 
         dealerCard1Suit1 = (ImageView) findViewById(R.id.dealercard1suit1);
         dealerCard1Suit2 = (ImageView) findViewById(R.id.dealercard1suit2);
@@ -85,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
         dealerCard2Suit2 = (ImageView) findViewById(R.id.dealercard2suit2);
 
 
+        //other images
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
         handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
@@ -115,11 +116,25 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
 
+    public void makeCardSuitsInvisible(){
+        userCard1Suit1.setVisibility(View.INVISIBLE);
+        userCard1Suit2.setVisibility(View.INVISIBLE);
+        userCard2Suit1.setVisibility(View.INVISIBLE);
+        userCard2Suit2.setVisibility(View.INVISIBLE);
+
+        dealerCard1Suit1.setVisibility(View.INVISIBLE);
+        dealerCard1Suit2.setVisibility(View.INVISIBLE);
+        dealerCard2Suit1.setVisibility(View.INVISIBLE);
+        dealerCard2Suit2.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_activity);
+
         initializeVariables();
+        makeCardSuitsInvisible();
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view){
