@@ -56,6 +56,12 @@ public class GameActivity extends AppCompatActivity {
     TextView selectedBetTv;
     TextView name;
 
+    TextView cardOneTv;
+    TextView cardTwoTv;
+    TextView dealerCardOneTv;
+    TextView dealerCardTwoTv;
+
+
     SeekBar betBar;
 
     private void initializeVariables(){
@@ -84,6 +90,11 @@ public class GameActivity extends AppCompatActivity {
         dealerCard2Suit1 = (ImageView) findViewById(R.id.dealercard2suit1);
         dealerCard2Suit2 = (ImageView) findViewById(R.id.dealercard2suit2);
 
+        //card Tvs
+        cardOneTv = (TextView) findViewById(R.id.cardOneTv);
+        cardTwoTv = (TextView) findViewById(R.id.cardTwoTv);
+        dealerCardOneTv = (TextView) findViewById(R.id.dealerCardOneTv);
+        dealerCardTwoTv = (TextView) findViewById(R.id.dealerCardTwoTv);
 
         //other images
 
@@ -139,8 +150,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void revealDealerCard(){
+        dealerCard2.setImageResource(android.R.color.white);
         dealerCard2Suit1.setVisibility(View.VISIBLE);
         dealerCard2Suit2.setVisibility(View.VISIBLE);
+    }
+
+    public void makeCardsWhite(){
+        userCard1.setImageResource(android.R.color.white);
+        userCard2.setImageResource(android.R.color.white);
+        dealerCard1.setImageResource(android.R.color.white);
     }
 
     @Override
@@ -242,6 +260,8 @@ public class GameActivity extends AppCompatActivity {
             userCard1Suit1.setImageResource(R.drawable.spade);
             userCard1Suit2.setImageResource(R.drawable.spade);
         }
+
+        cardOneTv.setText(newGame.showUserCardOneValue());
     }
 
     public void displayUserCardTwo(){
@@ -258,6 +278,8 @@ public class GameActivity extends AppCompatActivity {
             userCard2Suit1.setImageResource(R.drawable.spade);
             userCard2Suit2.setImageResource(R.drawable.spade);
         }
+
+        cardTwoTv.setText(newGame.showUserCardTwoValue());
     }
 
     public void displayDealerCardOne(){
@@ -274,6 +296,8 @@ public class GameActivity extends AppCompatActivity {
             dealerCard1Suit1.setImageResource(R.drawable.spade);
             dealerCard1Suit2.setImageResource(R.drawable.spade);
         }
+
+        dealerCardOneTv.setText(newGame.showDealerCardOneValue());
     }
 
     public void displayDealerCardTwo(){
@@ -290,10 +314,13 @@ public class GameActivity extends AppCompatActivity {
             dealerCard2Suit1.setImageResource(R.drawable.spade);
             dealerCard2Suit2.setImageResource(R.drawable.spade);
         }
+
+        dealerCardTwoTv.setText(newGame.showDealerCardTwoValue());
     }
     public void dealerMove(){
         //Dealer Move
         revealDealerCard();
+        displayDealerCardTwo();
         newGame.dealerMove();
 
         //update Views
@@ -351,6 +378,7 @@ public class GameActivity extends AppCompatActivity {
 
         newGame.deal();
         makeCardsVisible();
+        makeCardsWhite();
         displayUserCardOne();
         displayUserCardTwo();
         displayDealerCardOne();

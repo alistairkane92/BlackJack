@@ -22,7 +22,6 @@ public class Game {
 
         players.add(player);
         players.add(dealer);
-
     }
 
     public ArrayList<Participant> getPlayers() {
@@ -59,6 +58,13 @@ public class Game {
         return dealer.getHandValue();
     }
 
+    public String showUserCardOneValue(){ return Integer.toString( this.player.getHand().getCards().get(0).getValue());}
+
+    public String showUserCardTwoValue(){ return Integer.toString( this.player.getHand().getCards().get(1).getValue());}
+
+    public String showDealerCardOneValue(){return Integer.toString( this.dealer.getHand().getCards().get(0).getValue()); }
+
+    public String showDealerCardTwoValue(){ return Integer.toString( this.dealer.getHand().getCards().get(1).getValue()); }
 
     public void twist(){
         //deals player another card and display new result
