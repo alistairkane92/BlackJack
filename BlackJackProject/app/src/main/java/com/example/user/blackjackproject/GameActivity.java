@@ -247,6 +247,7 @@ public class GameActivity extends AppCompatActivity {
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
+        showWinnerTv.setVisibility(View.VISIBLE);
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
@@ -358,6 +359,7 @@ public class GameActivity extends AppCompatActivity {
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
+        showWinnerTv.setVisibility(View.VISIBLE);
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
@@ -416,6 +418,7 @@ public class GameActivity extends AppCompatActivity {
 
         setChipImageSize();
         betBar.setMax(newGame.showUserFunds());
+        showWinnerTv.setVisibility(View.INVISIBLE);
     }
 
     public void reBuyPage(View view) {
