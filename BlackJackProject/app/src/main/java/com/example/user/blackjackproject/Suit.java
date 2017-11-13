@@ -7,14 +7,14 @@ package com.example.user.blackjackproject;
 public enum Suit {
 
 
-    HEARTS("Hearts", 1),
-    DIAMONDS("Diamonds", 2),
-    CLUBS("Clubs", 3),
-    SPADES("Spades", 4);
+    HEARTS("Hearts", R.drawable.heart),
+    DIAMONDS("Diamonds", R.drawable.diamond),
+    CLUBS("Clubs", R.drawable.club),
+    SPADES("Spades", R.drawable.spade);
 
 
     private String suit;
-    private Integer image;
+    private int image;
 
     Suit(String suit, Integer image) {
         this.suit = suit;
@@ -25,7 +25,7 @@ public enum Suit {
         return suit;
     }
 
-    public Integer getImage() {
+    public int getImage() {
         return image;
     }
 }
