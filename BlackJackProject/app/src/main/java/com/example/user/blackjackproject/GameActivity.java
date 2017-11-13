@@ -377,37 +377,42 @@ public class GameActivity extends AppCompatActivity {
         dealerCardTwoTv.setVisibility(View.INVISIBLE);
     }
     public void placeBet(View view) {
-        newGame.placeBet(betPlaced);
-        betBar.setVisibility(View.INVISIBLE);
-        placeBetBtn.setVisibility(View.INVISIBLE);
-        selectedBetTv.setVisibility(View.INVISIBLE);
+        if (betPlaced > 0 ){
+            newGame.placeBet(betPlaced);
+            betBar.setVisibility(View.INVISIBLE);
+            placeBetBtn.setVisibility(View.INVISIBLE);
+            selectedBetTv.setVisibility(View.INVISIBLE);
 
-        hideDealerCardTwo();
+            hideDealerCardTwo();
 
-        stickBtn.setVisibility(View.VISIBLE);
-        twistBtn.setVisibility(View.VISIBLE);
-        handValueTv.setVisibility(View.VISIBLE);
-
-
-        dealerHandValueTv.setText("");
-        showWinnerTv.setText("");
-        checkBustTv.setText("");
-        showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
+            stickBtn.setVisibility(View.VISIBLE);
+            twistBtn.setVisibility(View.VISIBLE);
+            handValueTv.setVisibility(View.VISIBLE);
 
 
-        newGame.deal();
-        makeCardsVisible();
-        makeCardsWhite();
-        displayUserCardOne();
-        displayUserCardTwo();
-        displayDealerCardOne();
+            dealerHandValueTv.setText("");
+            showWinnerTv.setText("");
+            checkBustTv.setText("");
+            showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
 
-        handValueTv.setText(newGame.showUserHandValue().toString());
+            newGame.deal();
+            makeCardsVisible();
+            makeCardsWhite();
+            displayUserCardOne();
+            displayUserCardTwo();
+            displayDealerCardOne();
 
-        setChipImageSize();
-        betBar.setMax(newGame.showUserFunds());
-        showWinnerTv.setVisibility(View.INVISIBLE);
-        chips.setVisibility(View.VISIBLE);
+            handValueTv.setText(newGame.showUserHandValue().toString());
+
+            setChipImageSize();
+            betBar.setMax(newGame.showUserFunds());
+            showWinnerTv.setVisibility(View.INVISIBLE);
+            chips.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getApplicationContext(), "Please enter a valid bet", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     public void reBuyPage(View view) {
