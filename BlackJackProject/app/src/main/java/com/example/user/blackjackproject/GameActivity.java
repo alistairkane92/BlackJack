@@ -2,6 +2,7 @@ package com.example.user.blackjackproject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -302,16 +303,31 @@ public class GameActivity extends AppCompatActivity {
 
     public void dealerMove(){
         //Dealer Move
+
         revealDealerCardTwo();
-        displayDealerCardTwo();
-        newGame.dealerMove();
 
-        //update Views
-        dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
-        showWinnerTv.setVisibility(View.VISIBLE);
-        showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 
-        newGame.payOut(betPlaced);
+        CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                newGame.dealerMove();
+
+                //update Views
+                dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
+                showWinnerTv.setVisibility(View.VISIBLE);
+                showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
+
+                newGame.payOut(betPlaced);
+                displayDealerCardTwo();
+                endOfRound();
+            }
+        }.start();
     }
 
     public void stick(View view) {
@@ -326,23 +342,32 @@ public class GameActivity extends AppCompatActivity {
         twistBtn.setVisibility(View.INVISIBLE);
 
         dealerMove();
-        endOfRound();
     }
 
     public void twist(View view) {
-        beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
-
-        newGame.twist();
-        handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
-        checkBustTv.setText(newGame.displayBust());
-
-        if (newGame.displayBust().equals("You're BUST!")){
-            dealerMove();
-            endOfRound();
-        }
-
         //deals new card and displays new result
         //if bust needs to do dealer logic anyway
+
+        CountDownTimer delay = new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+
+                beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
+
+                newGame.twist();
+                handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
+                checkBustTv.setText(newGame.displayBust());
+
+                if (newGame.displayBust().equals("You're BUST!")) {
+                    dealerMove();
+                }
+            }
+            public void onTick(long millisUntilFinished){
+
+            }
+        }.start();
+
+
+
     }
 
     public void hideDealerCardTwo(){

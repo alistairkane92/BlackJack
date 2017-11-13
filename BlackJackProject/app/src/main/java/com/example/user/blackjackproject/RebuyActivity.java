@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RebuyActivity extends AppCompatActivity {
     EditText rebuyAmount;
@@ -28,8 +29,11 @@ public class RebuyActivity extends AppCompatActivity {
     public void goToGame(View view) {
         Intent i = new Intent(this, GameActivity.class);
         Integer reBuy = Integer.parseInt(rebuyAmount.getText().toString().toUpperCase());
-        i.putExtra("name", name);
-        i.putExtra("newFunds", reBuy);
-        startActivity(i);
+
+        if (reBuy > 0) {
+            i.putExtra("name", name);
+            i.putExtra("newFunds", reBuy);
+            startActivity(i);
+        } else  Toast.makeText(getApplicationContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show();
     }
 }
