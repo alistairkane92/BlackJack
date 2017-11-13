@@ -15,53 +15,52 @@ import android.widget.Toast;
 
 
 public class GameActivity extends AppCompatActivity {
-    ImageView camera;
+    private ImageView camera;
 
-    ImageView userCard1;
-    ImageView userCard2;
-    ImageView dealerCard1;
-    ImageView dealerCard2;
+    private ImageView userCard1;
+    private ImageView userCard2;
+    private ImageView dealerCard1;
+    private ImageView dealerCard2;
 
-    ImageView dealerCard1Suit1;
-    ImageView dealerCard1Suit2;
-    ImageView dealerCard2Suit1;
-    ImageView dealerCard2Suit2;
+    private ImageView dealerCard1Suit1;
+    private ImageView dealerCard1Suit2;
+    private ImageView dealerCard2Suit1;
+    private ImageView dealerCard2Suit2;
 
-    ImageView userCard1Suit1;
-    ImageView userCard1Suit2;
-    ImageView userCard2Suit1;
-    ImageView userCard2Suit2;
-
-
-    Button placeBetBtn;
-    Button stickBtn;
-    Button twistBtn;
-    Button rebuyBtn;
-    Button btnCamera;
-
-    Bundle extras;
-    Integer newFunds;
-    Integer beforeWinAmount;
-
-    Game newGame;
-    Deck deck;
-    Integer betPlaced;
-
-    TextView handValueTv;
-    TextView dealerHandValueTv;
-    TextView showWinnerTv;
-    TextView checkBustTv;
-    TextView showFundsTv;
-    TextView selectedBetTv;
-    TextView name;
-
-    TextView cardOneTv;
-    TextView cardTwoTv;
-    TextView dealerCardOneTv;
-    TextView dealerCardTwoTv;
+    private ImageView userCard1Suit1;
+    private ImageView userCard1Suit2;
+    private ImageView userCard2Suit1;
+    private ImageView userCard2Suit2;
 
 
-    SeekBar betBar;
+    private Button placeBetBtn;
+    private Button stickBtn;
+    private Button twistBtn;
+    private Button rebuyBtn;
+    private Button btnCamera;
+
+    private Bundle extras;
+    private Integer newFunds;
+    private Integer beforeWinAmount;
+
+    private Game newGame;
+    private Deck deck;
+    private Integer betPlaced;
+
+    private TextView handValueTv;
+    private  TextView dealerHandValueTv;
+    private TextView showWinnerTv;
+    private TextView checkBustTv;
+    private TextView showFundsTv;
+    private TextView selectedBetTv;
+    private TextView name;
+
+    private TextView cardOneTv;
+    private TextView cardTwoTv;
+    private TextView dealerCardOneTv;
+    private TextView dealerCardTwoTv;
+
+    private SeekBar betBar;
 
     private void initializeVariables(){
 
@@ -152,7 +151,8 @@ public class GameActivity extends AppCompatActivity {
         dealerCard1Suit2.setVisibility(View.VISIBLE);
     }
 
-    public void revealDealerCard(){
+    public void revealDealerCardTwo(){
+        dealerCardTwoTv.setVisibility(View.VISIBLE);
         dealerCard2.setImageResource(android.R.color.white);
         dealerCard2Suit1.setVisibility(View.VISIBLE);
         dealerCard2Suit2.setVisibility(View.VISIBLE);
@@ -245,7 +245,7 @@ public class GameActivity extends AppCompatActivity {
         String showAmountWon = Integer.toString(betPlaced * 2);
 
         if (newGame.showUserFunds() > beforeWinAmount){
-            Toast.makeText(getApplicationContext(), "You just won: " + showAmountWon + "!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You just won " + showAmountWon + "buckerooneys!!!", Toast.LENGTH_SHORT).show();
         }
 
         if (!newGame.getPlayers().get(0).getHand().checkBust()){
@@ -327,7 +327,7 @@ public class GameActivity extends AppCompatActivity {
     }
     public void dealerMove(){
         //Dealer Move
-        revealDealerCard();
+        revealDealerCardTwo();
         displayDealerCardTwo();
         newGame.dealerMove();
 
@@ -366,15 +366,19 @@ public class GameActivity extends AppCompatActivity {
         //if bust needs to do dealer logic anyway
     }
 
+    public void hideDealerCardTwo(){
+        dealerCard2.setImageResource(R.drawable.back);
+        dealerCard2Suit1.setVisibility(View.INVISIBLE);
+        dealerCard2Suit2.setVisibility(View.INVISIBLE);
+        dealerCardTwoTv.setVisibility(View.INVISIBLE);
+    }
     public void placeBet(View view) {
         newGame.placeBet(betPlaced);
         betBar.setVisibility(View.INVISIBLE);
         placeBetBtn.setVisibility(View.INVISIBLE);
         selectedBetTv.setVisibility(View.INVISIBLE);
 
-        dealerCard2.setImageResource(R.drawable.back);
-        dealerCard2Suit1.setVisibility(View.INVISIBLE);
-        dealerCard2Suit2.setVisibility(View.INVISIBLE);
+        hideDealerCardTwo();
 
         stickBtn.setVisibility(View.VISIBLE);
         twistBtn.setVisibility(View.VISIBLE);
