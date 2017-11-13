@@ -274,24 +274,77 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void displayUserCardOne(){
-            userCard1Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
-            userCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+            new CountDownTimer(1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
 
-        cardOneTv.setText(newGame.showUserCardOneValue());
+                }
+
+                @Override
+                public void onFinish() {
+                    userCard1Suit1.setVisibility(View.VISIBLE);
+                    userCard1Suit2.setVisibility(View.VISIBLE);
+                    userCard1Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+                    userCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+
+                    cardOneTv.setText(newGame.showUserCardOneValue());
+                }
+            }.start();
+
+    }
+
+    public void revealTheDeal(){
+        newGame.deal();
+        makeCardsVisible();
+        makeCardsWhite();
+        displayUserCardOne();
+        displayUserCardTwo();
+
+        displayDealerCardOne();
+
+
+
     }
 
     public void displayUserCardTwo(){
-            userCard2Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
-            userCard2Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
 
-        cardTwoTv.setText(newGame.showUserCardTwoValue());
+            new CountDownTimer(2000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    userCard2Suit1.setVisibility(View.VISIBLE);
+                    userCard2Suit2.setVisibility(View.VISIBLE);
+                    userCard2Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+                    userCard2Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+
+                    cardTwoTv.setText(newGame.showUserCardTwoValue());
+                }
+            }.start();
+
     }
 
     public void displayDealerCardOne(){
-            dealerCard1Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
-            dealerCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
 
-        dealerCardOneTv.setText(newGame.showDealerCardOneValue());
+            new CountDownTimer(3000, 1000){
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    dealerCard1Suit1.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+                    dealerCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+                    dealerCard1Suit1.setVisibility(View.VISIBLE);
+                    dealerCard1Suit2.setVisibility(View.VISIBLE);
+                    dealerCardOneTv.setText(newGame.showDealerCardOneValue());
+                }
+            }.start();
     }
 
     public void displayDealerCardTwo(){
@@ -305,7 +358,7 @@ public class GameActivity extends AppCompatActivity {
         //Dealer Move
 
         revealDealerCardTwo();
-
+        newGame.dealerMove();
 
         CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
             @Override
@@ -315,9 +368,6 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-                newGame.dealerMove();
-
                 //update Views
                 dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
                 showWinnerTv.setVisibility(View.VISIBLE);
@@ -365,17 +415,15 @@ public class GameActivity extends AppCompatActivity {
 
             }
         }.start();
-
-
-
     }
 
-    public void hideDealerCardTwo(){
+    public void hideDealerCardTwo() {
         dealerCard2.setImageResource(R.drawable.back);
         dealerCard2Suit1.setVisibility(View.INVISIBLE);
         dealerCard2Suit2.setVisibility(View.INVISIBLE);
         dealerCardTwoTv.setVisibility(View.INVISIBLE);
     }
+
     public void placeBet(View view) {
         if (betPlaced > 0 ){
             newGame.placeBet(betPlaced);
@@ -395,12 +443,7 @@ public class GameActivity extends AppCompatActivity {
             checkBustTv.setText("");
             showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
 
-            newGame.deal();
-            makeCardsVisible();
-            makeCardsWhite();
-            displayUserCardOne();
-            displayUserCardTwo();
-            displayDealerCardOne();
+            revealTheDeal();
 
             handValueTv.setText(newGame.showUserHandValue().toString());
 
