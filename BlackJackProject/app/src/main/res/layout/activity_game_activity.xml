@@ -80,8 +80,8 @@
 
     <TextView
         android:id="@+id/showWinnerTv"
-        android:layout_width="354dp"
-        android:layout_height="44dp"
+        android:layout_width="130dp"
+        android:layout_height="59dp"
         android:background="@android:color/background_dark"
         android:fontFamily="casual"
         android:text="Swipe the Bar to select a Bet"
@@ -93,8 +93,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419"
-        tools:text="showWinner" />
+        app:layout_constraintVertical_bias="0.424"
+        tools:text="showWinner"
+        app:layout_constraintHorizontal_bias="0.185" />
 
     <TextView
         android:id="@+id/checkBustTv"
@@ -317,8 +318,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.712"
-        app:srcCompat="@drawable/back"
-        tools:layout_editor_absoluteY="305dp" />
+        app:srcCompat="@drawable/back" />
 
     <ImageView
         android:id="@+id/card1suit2"
@@ -476,5 +476,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.136"
         tools:text="1" />
+
+    <ImageView
+        android:id="@+id/chips"
+        android:layout_width="92dp"
+        android:layout_height="87dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.426"
+        app:srcCompat="@android:drawable/btn_star"
+        tools:layout_editor_absoluteX="240dp"
+        tools:layout_editor_absoluteY="195dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -17,6 +17,8 @@ import android.widget.Toast;
 public class GameActivity extends AppCompatActivity {
     private ImageView camera;
 
+    private ImageView chips;
+
     private ImageView userCard1;
     private ImageView userCard2;
     private ImageView dealerCard1;
@@ -94,6 +96,10 @@ public class GameActivity extends AppCompatActivity {
         dealerCardOneTv = (TextView) findViewById(R.id.dealerCardOneTv);
         dealerCardTwoTv = (TextView) findViewById(R.id.dealerCardTwoTv);
 
+
+        //chips
+        chips = (ImageView) findViewById(R.id.chips);
+
         //other images
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
@@ -122,12 +128,6 @@ public class GameActivity extends AppCompatActivity {
 
         showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
     }
-
-//    public void changeCardViewIfCardValueIsSymbol(){
-//        if (newGame.getPlayers().get(0).getHand().getCards().get(0).getRank().equals("Jack") && newGame.getPlayers().get(0).getHand().getCards().get(0).getSuit().equals(Suit.CLUBS) || newGame.getPlayers().get(0).getHand().getCards().get(0).getSuit().equals(Suit.SPADES)){
-//            userCard1.setImageResource(R.drawable.Jb);
-//        } else if
-/// /    }
 
     public void makeCardSuitsInvisible(){
         userCard1Suit1.setVisibility(View.INVISIBLE);
@@ -186,7 +186,7 @@ public class GameActivity extends AppCompatActivity {
 
         betBar.setMax(newGame.showUserFunds());
 
-        selectedBetTv.setText(betBar.getProgress() + "/" + betBar.getMax());
+        selectedBetTv.setText("£" + betBar.getProgress() + "/" + "£" + betBar.getMax());
 
         //onSeekBar is used to keep track of the value of the seekBar
 
@@ -197,7 +197,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                selectedBetTv.setText(Integer.toString(progress) + "/" + newGame.showUserFunds());
+                selectedBetTv.setText("£" + Integer.toString(progress) + "/" + newGame.showUserFunds());
             }
 
             @Override
@@ -206,18 +206,31 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                selectedBetTv.setText(+ progress + "/" + newGame.showUserFunds());
+                selectedBetTv.setText("£" + progress + "/" + newGame.showUserFunds());
                 Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 betPlaced = progress;
             }
         });
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
         camera.setImageBitmap(bitmap);
+    }
+
+    public void setChipImageSize(){
+        if (betPlaced.equals(1)){
+            chips.setImageResource(R.drawable.singlechip);
+        } else if (betPlaced < 10) {
+            chips.setImageResource(R.drawable.somechips);
+        } else if (betPlaced < 50) {
+            chips.setImageResource(R.drawable.morechips);
+        } else if (betPlaced < newGame.showUserFunds()) {
+            chips.setImageResource(R.drawable.all_in);
+        }
     }
 
     public void makeRebuyVisibleIfBust(){
@@ -245,7 +258,7 @@ public class GameActivity extends AppCompatActivity {
         String showAmountWon = Integer.toString(betPlaced * 2);
 
         if (newGame.showUserFunds() > beforeWinAmount){
-            Toast.makeText(getApplicationContext(), "You just won " + showAmountWon + "buckerooneys!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "You just won £" + showAmountWon + "!!", Toast.LENGTH_SHORT).show();
         }
 
         if (!newGame.getPlayers().get(0).getHand().checkBust()){
@@ -400,6 +413,7 @@ public class GameActivity extends AppCompatActivity {
 
         handValueTv.setText(newGame.showUserHandValue().toString());
 
+        setChipImageSize();
         betBar.setMax(newGame.showUserFunds());
     }
 
