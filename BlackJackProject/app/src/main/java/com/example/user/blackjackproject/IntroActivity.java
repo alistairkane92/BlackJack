@@ -1,17 +1,19 @@
 package com.example.user.blackjackproject;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class IntroActivity extends AppCompatActivity {
 
-    Button goToMain;
-    TextView name;
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         name = (TextView) findViewById(R.id.nameTv);
-        goToMain = (Button) findViewById(R.id.goToMain);
+
     }
 
     public void goToMain(View view) {

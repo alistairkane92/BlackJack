@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class GameActivity extends AppCompatActivity {
     private ImageView camera;
 
@@ -110,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         name = (TextView) findViewById(R.id.nameTv);
-        camera = (ImageView) findViewById((R.id.imageView));
+        camera = (ImageView) findViewById((R.id.introImage));
 
         betPlaced = 0;
         newFunds = 0;
@@ -126,7 +125,7 @@ public class GameActivity extends AppCompatActivity {
         newGame.setUserName(newName);
         name.setText(newName);
 
-        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
+        showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
     }
 
     public void makeCardSuitsInvisible(){
@@ -207,7 +206,9 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("£" + progress + "/" + newGame.showUserFunds());
-                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
+                if (progress < 20) {
+                    Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
+                }
                 betPlaced = progress;
             }
         });
@@ -228,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
             chips.setImageResource(R.drawable.somechips);
         } else if (betPlaced < 50) {
             chips.setImageResource(R.drawable.morechips);
-        } else if (betPlaced < newGame.showUserFunds()) {
+        } else if (betPlaced >= 51) {
             chips.setImageResource(R.drawable.all_in);
         }
     }
