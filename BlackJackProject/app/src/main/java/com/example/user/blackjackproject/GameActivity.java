@@ -371,7 +371,10 @@ public class GameActivity extends AppCompatActivity {
         betBar.setVisibility(View.INVISIBLE);
         placeBetBtn.setVisibility(View.INVISIBLE);
         selectedBetTv.setVisibility(View.INVISIBLE);
-        dealerCard2.setVisibility(View.INVISIBLE);
+
+        dealerCard2.setImageResource(R.drawable.back);
+        dealerCard2Suit1.setVisibility(View.INVISIBLE);
+        dealerCard2Suit2.setVisibility(View.INVISIBLE);
 
         stickBtn.setVisibility(View.VISIBLE);
         twistBtn.setVisibility(View.VISIBLE);
