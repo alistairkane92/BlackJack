@@ -42,34 +42,6 @@
         app:layout_constraintRight_toLeftOf="@+id/twistBtn" />
 
     <TextView
-        android:id="@+id/handDisplayTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="HandDisplay"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
-
-    <TextView
-        android:id="@+id/dealerHandDisplayTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="DealerHandDisplay"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
-
-    <TextView
         android:id="@+id/handValueTv"
         android:layout_width="68dp"
         android:layout_height="40dp"
@@ -166,15 +138,15 @@
         style="@android:style/Widget.Material.SeekBar"
         android:layout_width="247dp"
         android:layout_height="49dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:max="0"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85" />
 
@@ -273,19 +245,19 @@
 
     <Button
         android:id="@+id/btnCapture"
-        android:layout_width="91dp"
+        android:layout_width="95dp"
         android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="show me what you got"
         android:textSize="6sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/stickBtn"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintRight_toLeftOf="@+id/stickBtn" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -338,14 +310,15 @@
     <ImageView
         android:id="@+id/userCard1"
         android:layout_width="58dp"
-        android:layout_height="87dp"
+        android:layout_height="84dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.711"
-        app:srcCompat="@drawable/back" />
+        app:layout_constraintVertical_bias="0.712"
+        app:srcCompat="@drawable/back"
+        tools:layout_editor_absoluteY="305dp" />
 
     <ImageView
         android:id="@+id/card1suit2"

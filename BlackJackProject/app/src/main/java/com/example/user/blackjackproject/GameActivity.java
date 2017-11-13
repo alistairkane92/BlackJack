@@ -41,14 +41,13 @@ public class GameActivity extends AppCompatActivity {
 
     Bundle extras;
     Integer newFunds;
+    Integer beforeWinAmount;
 
     Game newGame;
     Deck deck;
     Integer betPlaced;
 
-    TextView handDisplayTv;
     TextView handValueTv;
-    TextView dealerHandTv;
     TextView dealerHandValueTv;
     TextView showWinnerTv;
     TextView checkBustTv;
@@ -99,9 +98,7 @@ public class GameActivity extends AppCompatActivity {
         //other images
 
         betBar = (SeekBar) findViewById(R.id.pickABetSb);
-        handDisplayTv = (TextView) findViewById(R.id.handDisplayTv);
         handValueTv = (TextView) findViewById(R.id.handValueTv);
-        dealerHandTv = (TextView) findViewById(R.id.dealerHandDisplayTv);
         dealerHandValueTv = (TextView) findViewById(R.id.dealerHandValueTv);
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
@@ -228,7 +225,6 @@ public class GameActivity extends AppCompatActivity {
             rebuyBtn.setVisibility(View.VISIBLE);
             stickBtn.setVisibility(View.INVISIBLE);
             twistBtn.setVisibility(View.INVISIBLE);
-            handDisplayTv.setVisibility(View.INVISIBLE);
             placeBetBtn.setVisibility(View.INVISIBLE);
         }
     }
@@ -245,6 +241,12 @@ public class GameActivity extends AppCompatActivity {
         betBar.setMax(newGame.showUserFunds());
 
         makeRebuyVisibleIfBust();
+
+        String showAmountWon = Integer.toString(betPlaced * 2);
+
+        if (newGame.showUserFunds() > beforeWinAmount){
+            Toast.makeText(getApplicationContext(), "You just won: " + showAmountWon + "!!!", Toast.LENGTH_SHORT).show();
+        }
 
         if (!newGame.getPlayers().get(0).getHand().checkBust()){
             Toast.makeText(getApplicationContext(), "Place your bet please!", Toast.LENGTH_LONG).show();
@@ -330,7 +332,6 @@ public class GameActivity extends AppCompatActivity {
         newGame.dealerMove();
 
         //update Views
-        dealerHandTv.setText(newGame.showDealerHand());
         dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
         showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 
@@ -338,6 +339,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void stick(View view) {
+        beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
+
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
@@ -351,7 +354,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void twist(View view) {
         newGame.twist();
-        handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
         checkBustTv.setText(newGame.displayBust());
 
@@ -369,13 +371,13 @@ public class GameActivity extends AppCompatActivity {
         betBar.setVisibility(View.INVISIBLE);
         placeBetBtn.setVisibility(View.INVISIBLE);
         selectedBetTv.setVisibility(View.INVISIBLE);
+        dealerCard2.setVisibility(View.INVISIBLE);
 
         stickBtn.setVisibility(View.VISIBLE);
         twistBtn.setVisibility(View.VISIBLE);
         handValueTv.setVisibility(View.VISIBLE);
 
 
-        dealerHandTv.setText("");
         dealerHandValueTv.setText("");
         showWinnerTv.setText("");
         checkBustTv.setText("");
@@ -389,7 +391,6 @@ public class GameActivity extends AppCompatActivity {
         displayUserCardTwo();
         displayDealerCardOne();
 
-        handDisplayTv.setText(newGame.showUserHand());
         handValueTv.setText(newGame.showUserHandValue().toString());
 
         betBar.setMax(newGame.showUserFunds());
