@@ -318,9 +318,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }.start();
 
-
-
-
     }
 
     public void placeBet(View view) {
