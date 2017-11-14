@@ -142,7 +142,7 @@ public class GameActivity extends AppCompatActivity {
 
         //Communal "You Drew" text
         communalDrawTextTv = (TextView) findViewById(R.id.communalDrawTextTv);
-        
+
         //Win or bust TextViews
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
@@ -193,6 +193,11 @@ public class GameActivity extends AppCompatActivity {
 
         dealerTotalTv.setVisibility(View.INVISIBLE);
         userTotalTv.setVisibility(View.INVISIBLE);
+
+        communalCard.setVisibility(View.INVISIBLE);
+        communalCardSuit.setVisibility(View.INVISIBLE);
+        communalDrawTextTv.setVisibility(View.INVISIBLE);
+        communalCardTv.setVisibility(View.INVISIBLE);
 
         //Display user funds
 
@@ -271,6 +276,31 @@ public class GameActivity extends AppCompatActivity {
                 beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
 
                 newGame.twist();
+
+                communalDrawTextTv.setVisibility(View.VISIBLE);
+                communalCard.setImageResource(android.R.color.white);
+                communalCardSuit.setVisibility(View.VISIBLE);
+                communalCardTv.setVisibility(View.VISIBLE);
+
+                //sets communal card to most recent twist
+
+                if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 4) {
+                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(2).getValue()));
+                    communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(2).getSuitImage());
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 5){
+                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(3).getValue()));
+                    communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(3).getSuitImage());
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 6){
+                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(4).getValue()));
+                    communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(4).getSuitImage());
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 7){
+                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(5).getValue()));
+                    communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(5).getSuitImage());
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 8){
+                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(6).getValue()));
+                    communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(6).getSuitImage());
+                }
+
                 handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
                 checkBustTv.setText(newGame.displayBust());
 
@@ -505,6 +535,11 @@ public class GameActivity extends AppCompatActivity {
         placeBetBtn.setVisibility(View.INVISIBLE);
         selectedBetTv.setVisibility(View.INVISIBLE);
         handValueTv.setText("");
+
+        communalCard.setVisibility(View.INVISIBLE);
+        communalCardSuit.setVisibility(View.INVISIBLE);
+        communalDrawTextTv.setVisibility(View.INVISIBLE);
+        communalCardTv.setVisibility(View.INVISIBLE);
     }
 
     //ReBuy Button
