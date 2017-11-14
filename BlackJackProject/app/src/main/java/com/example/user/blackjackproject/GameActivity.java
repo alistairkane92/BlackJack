@@ -20,8 +20,6 @@ public class GameActivity extends AppCompatActivity {
     private ImageView camera;
     private ImageView chips;
 
-    private Toast condition;
-
     //Cards
     private ImageView userCard1;
     private ImageView userCard2;
@@ -236,7 +234,6 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                condition.cancel();
             }
 
             @Override

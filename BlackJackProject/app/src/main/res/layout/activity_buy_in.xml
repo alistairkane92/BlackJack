@@ -32,9 +32,9 @@
         android:background="@color/colorPrimary"
         android:text="How much do you want to Buy In for?"
         android:textAlignment="center"
-        android:textColor="@android:color/background_light"
+        android:textColor="@android:color/background_dark"
         android:textSize="23sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -55,6 +55,7 @@
         android:layout_marginTop="24dp"
         android:text="(recommended Buy In =  500)"
         android:textColor="@android:color/background_dark"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -74,8 +75,8 @@
         android:ems="10"
         android:inputType="number"
         android:singleLine="false"
-        android:textColor="@color/colorPrimary"
-        android:textColorLink="@color/colorAccent"
+        android:textColor="@android:color/background_light"
+        android:textColorLink="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/buyInBtn"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -84,14 +85,16 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="150dp"
-        android:layout_height="225dp"
+        android:layout_width="match_parent"
+        android:layout_height="259dp"
+        android:background="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423"
-        app:srcCompat="@drawable/intro_blackjack" />
+        app:layout_constraintVertical_bias="0.422"
+        app:srcCompat="@drawable/intro_blackjack"
+        tools:layout_editor_absoluteX="94dp" />
 
 
 </android.support.constraint.ConstraintLayout>
