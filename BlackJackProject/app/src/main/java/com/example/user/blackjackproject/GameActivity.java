@@ -269,6 +269,9 @@ public class GameActivity extends AppCompatActivity {
         //if bust needs to do dealer logic anyway
         communalDrawTextTv.setVisibility(View.VISIBLE);
         communalDrawTextTv.setText("You drew:");
+        communalCard.setImageResource(R.drawable.back);
+        communalCardTv.setText("");
+        communalCardSuit.setVisibility(View.INVISIBLE);
 
         CountDownTimer delay = new CountDownTimer(1000, 1000) {
             public void onFinish() {
@@ -335,29 +338,61 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void dealerMove(){
-        newGame.dealerMove();
 
         displayDealerCardTwo();
 
-        CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
+        //if the dealer value is under 16 draw another card and then update the communal card with the most recent twisted card
 
-            }
+        //while dealers hand is below 16
+        //draw one card and update the twist
 
-            @Override
-            public void onFinish() {
-                //update Views
-                dealerHandValueTv.setVisibility(View.VISIBLE);
-                dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
-                showWinnerTv.setVisibility(View.VISIBLE);
-                showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
-                dealerTotalTv.setVisibility(View.VISIBLE);
-                sadFrog.setVisibility(View.INVISIBLE);
-                newGame.payOut(betPlaced);
-                endOfRound();
-            }
-        }.start();
+        if (newGame.getPlayers().get(1).getHandValue() < 16){
+            newGame.dealerTakesCard();
+            communalCard.setVisibility(View.VISIBLE);
+            communalCard.setImageResource(android.R.color.white);
+            communalCardSuit.setVisibility(View.VISIBLE);
+            communalCardTv.setVisibility(View.VISIBLE);
+            communalDrawTextTv.setVisibility(View.VISIBLE);
+            communalDrawTextTv.setText("Dealer drew:");
+
+
+            new CountDownTimer(1500, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+
+                @Override
+                public void onFinish() {
+                    //update Views
+                    if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 4) {
+                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(2).getValue()));
+                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(2).getSuitImage());
+                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 5){
+                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(3).getValue()));
+                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(3).getSuitImage());
+                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 6){
+                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(4).getValue()));
+                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(4).getSuitImage());
+                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 7){
+                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(5).getValue()));
+                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(5).getSuitImage());
+                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 8){
+                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(6).getValue()));
+                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(6).getSuitImage());
+                    }
+                    dealerHandValueTv.setVisibility(View.VISIBLE);
+                    dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
+                    showWinnerTv.setVisibility(View.VISIBLE);
+                    showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
+                    dealerTotalTv.setVisibility(View.VISIBLE);
+                    sadFrog.setVisibility(View.INVISIBLE);
+                    newGame.payOut(betPlaced);
+
+                }
+            }.start();
+        }
+
+        endOfRound();
     }
 
 

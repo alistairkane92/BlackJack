@@ -103,6 +103,10 @@ public class Game {
         }
     }
 
+    public void dealerTakesCard(){
+        dealer.dealCard(dealer, deck);
+    }
+
 //     && dealer.getHandValue() <= 21
 
     public boolean checkIfDrawDealerWins(ArrayList<Participant> players){
