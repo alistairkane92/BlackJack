@@ -287,6 +287,7 @@ public class GameActivity extends AppCompatActivity {
         communalCardSuit.setVisibility(View.INVISIBLE);
 
         newGame.twist();
+        newGame.makeAcesLow(newGame.getPlayers().get(0));
 
         CountDownTimer delay = new CountDownTimer(1000, 1000) {
             public void onFinish() {

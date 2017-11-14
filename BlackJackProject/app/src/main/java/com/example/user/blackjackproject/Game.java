@@ -58,11 +58,14 @@ public class Game {
         return dealer.getHandValue();
     }
 
-
-    public void twist(){
-        if (player.getHand().checkIfAce()) {
+    public void makeAcesLow(Participant player){
+        if (player.getHand().checkIfAce()){
             player.getHand().makeAcesLowIfBust();
         }
+    }
+
+    public void twist(){
+        makeAcesLow(player);
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
     }
@@ -95,10 +98,8 @@ public class Game {
 
     public void dealerMove() {
 
-        if (dealer.getHand().checkIfAce()) {
-            dealer.getHand().makeAcesLowIfBust();
-        }
-        
+        makeAcesLow(dealer);
+
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
         }
