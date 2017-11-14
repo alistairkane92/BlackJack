@@ -36,10 +36,10 @@ public class TestGame {
         players.add(player1);
         players.add(player2);
         game = new Game(spyDeck);
-        card1 = new Card(Suit.DIAMONDS, Rank.FOUR);
-        card2 = new Card(Suit.CLUBS, Rank.NINE);
-        card3 = new Card(Suit.HEARTS, Rank.SEVEN);
-        card4 = new Card(Suit.SPADES, Rank.NINE);
+        card1 = new Card(Suit.DIAMONDS, Rank.FOUR, 2);
+        card2 = new Card(Suit.CLUBS, Rank.NINE, 3);
+        card3 = new Card(Suit.HEARTS, Rank.SEVEN, 1);
+        card4 = new Card(Suit.SPADES, Rank.NINE, 4);
     }
 
 //    @Test

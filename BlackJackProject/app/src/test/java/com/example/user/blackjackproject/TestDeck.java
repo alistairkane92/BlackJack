@@ -37,7 +37,7 @@ public class TestDeck {
 
     @Test
     public void canGetCard() {
-        Mockito.when(spyDeck.getCard()).thenReturn(new Card(Suit.DIAMONDS, Rank.FIVE));
+        Mockito.when(spyDeck.getCard()).thenReturn(new Card(Suit.DIAMONDS, Rank.FIVE, 3));
         Card card = spyDeck.getCard();
         assertEquals(Suit.DIAMONDS, card.getSuit());
         assertEquals(Rank.FIVE, card.getRank());

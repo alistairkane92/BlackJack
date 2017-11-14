@@ -20,9 +20,9 @@ public class TestHand {
     @Before
     public void setup(){
         hand = new Hand();
-        card = new Card(Suit.CLUBS, Rank.ACE);
-        card2 = new Card(Suit.DIAMONDS, Rank.ACE);
-        card3 = new Card(Suit.DIAMONDS, Rank.KING);
+        card = new Card(Suit.CLUBS, Rank.ACE, 3);
+        card2 = new Card(Suit.DIAMONDS, Rank.ACE, 2);
+        card3 = new Card(Suit.DIAMONDS, Rank.KING, 2);
     }
 
     @Test

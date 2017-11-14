@@ -40,6 +40,9 @@ public class GameActivity extends AppCompatActivity {
     private Button rebuyBtn;
     private Button btnCamera;
 
+    private Participant dealer;
+    private Participant player;
+
     private Bundle extras;
 
     private Integer newFunds;
@@ -58,6 +61,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView dealerHandValueTv;
     private TextView showWinnerTv;
     private TextView checkBustTv;
+    private TextView dealerBust;
     private TextView showFundsTv;
     private TextView selectedBetTv;
     private TextView name;
@@ -85,16 +89,16 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private void setUpCamera(){
+    private void setUpCamera() {
         btnCamera.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 0);
             }
         });
     }
 
-    private void initializeVariables(){
+    private void initializeVariables() {
 
         //Buttons
         placeBetBtn = (Button) findViewById(R.id.placeBetBtn);
@@ -146,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
         //Win or bust TextViews
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
+        dealerBust = (TextView) findViewById(R.id.dealerBust);
         showFundsTv = (TextView) findViewById(R.id.displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         name = (TextView) findViewById(R.id.nameTv);
@@ -158,6 +163,9 @@ public class GameActivity extends AppCompatActivity {
         //Game Init
         deck = new Deck();
         newGame = new Game(deck);
+
+        player = (newGame.getPlayers().get(0));
+        dealer = (newGame.getPlayers().get(1));
 
         //Extras from Rebuy Page
         extras = getIntent().getExtras();
@@ -174,7 +182,7 @@ public class GameActivity extends AppCompatActivity {
         dealerTotalTv = (TextView) findViewById(R.id.dealerTotalTv);
     }
 
-    public void setUpViews(){
+    public void setUpViews() {
         showWinnerTv.setVisibility(View.INVISIBLE);
         chips.setVisibility(View.INVISIBLE);
         stickBtn.setVisibility(View.INVISIBLE);
@@ -205,7 +213,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void createBetBar(){
+    public void createBetBar() {
         betBar.setMax(newGame.showUserFunds());
 
         selectedBetTv.setText("£" + betBar.getProgress() + "/" + "£" + betBar.getMax());
@@ -219,7 +227,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
-                selectedBetTv.setText("£" + Integer.toString(progress) + "/" + newGame.showUserFunds());
+                selectedBetTv.setText("£" + Integer.toString(progress) + "/" + "£" + newGame.showUserFunds());
             }
 
             @Override
@@ -241,10 +249,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         camera.setImageBitmap(bitmap);
     }
-
 
 
     //Game Logic - Stick, Twist, Place Bet, Dealer Move
@@ -260,6 +267,11 @@ public class GameActivity extends AppCompatActivity {
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
 
+        communalCard.setVisibility(View.INVISIBLE);
+        communalCardSuit.setVisibility(View.INVISIBLE);
+        communalDrawTextTv.setVisibility(View.INVISIBLE);
+        communalCardTv.setVisibility(View.INVISIBLE);
+
 
         dealerMove();
     }
@@ -269,16 +281,19 @@ public class GameActivity extends AppCompatActivity {
         //if bust needs to do dealer logic anyway
         communalDrawTextTv.setVisibility(View.VISIBLE);
         communalDrawTextTv.setText("You drew:");
+        communalCard.setVisibility(View.VISIBLE);
         communalCard.setImageResource(R.drawable.back);
         communalCardTv.setText("");
         communalCardSuit.setVisibility(View.INVISIBLE);
+
+        newGame.twist();
 
         CountDownTimer delay = new CountDownTimer(1000, 1000) {
             public void onFinish() {
 
                 beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
 
-                newGame.twist();
+
 
 
                 communalCard.setVisibility(View.VISIBLE);
@@ -289,34 +304,38 @@ public class GameActivity extends AppCompatActivity {
                 //sets communal card to most recent twist
 
                 if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 4) {
-                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(2).getValue()));
+                    communalCardTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(2).getRank().getName());
                     communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(2).getSuitImage());
-                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 5){
-                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(3).getValue()));
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 5) {
+                    communalCardTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(3).getRank().getName());
                     communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(3).getSuitImage());
-                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 6){
-                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(4).getValue()));
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 6) {
+                    communalCardTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(4).getRank().getName());
                     communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(4).getSuitImage());
-                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 7){
-                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(5).getValue()));
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 7) {
+                    communalCardTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(5).getRank().getName());
                     communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(5).getSuitImage());
-                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 8){
-                    communalCardTv.setText(Integer.toString(newGame.getPlayers().get(0).getHand().getCards().get(6).getValue()));
+                } else if (newGame.getPlayers().get(0).getHand().getNumberOfCards() < 8) {
+                    communalCardTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(6).getRank().getName());
                     communalCardSuit.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(6).getSuitImage());
                 }
 
                 handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
                 checkBustTv.setText(newGame.displayBust());
 
-                if (newGame.displayBust().equals("You're BUST!")) {
+                if (newGame.getPlayers().get(0).getHand().checkBust()) {
                     sadFrog.setVisibility(View.VISIBLE);
                     dealerMove();
                 }
+
             }
-            public void onTick(long millisUntilFinished){
+
+            public void onTick(long millisUntilFinished) {
 
             }
         }.start();
+
+
     }
 
     public void placeBet(View view) {
@@ -337,26 +356,19 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void dealerMove(){
-
+    public void dealerMove() {
         displayDealerCardTwo();
 
-        //if the dealer value is under 16 draw another card and then update the communal card with the most recent twisted card
+        dealerHandValueTv.setVisibility(View.VISIBLE);
+        dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
 
-        //while dealers hand is below 16
-        //draw one card and update the twist
+        newGame.dealerMove();
 
-        if (newGame.getPlayers().get(1).getHandValue() < 16){
-            newGame.dealerTakesCard();
-            communalCard.setVisibility(View.VISIBLE);
-            communalCard.setImageResource(android.R.color.white);
-            communalCardSuit.setVisibility(View.VISIBLE);
-            communalCardTv.setVisibility(View.VISIBLE);
-            communalDrawTextTv.setVisibility(View.VISIBLE);
-            communalDrawTextTv.setText("Dealer drew:");
+        //communal card reveal step one
 
 
-            new CountDownTimer(1500, 1000) {
+        if (newGame.getPlayers().get(1).getHand().getNumberOfCards() > 2) {
+            new CountDownTimer(1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                 }
@@ -364,35 +376,41 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     //update Views
-                    if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 4) {
-                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(2).getValue()));
-                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(2).getSuitImage());
-                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 5){
-                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(3).getValue()));
-                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(3).getSuitImage());
-                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 6){
-                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(4).getValue()));
-                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(4).getSuitImage());
-                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 7){
-                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(5).getValue()));
-                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(5).getSuitImage());
-                    } else if (newGame.getPlayers().get(1).getHand().getNumberOfCards() < 8){
-                        communalCardTv.setText(Integer.toString(newGame.getPlayers().get(1).getHand().getCards().get(6).getValue()));
-                        communalCardSuit.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(6).getSuitImage());
-                    }
-                    dealerHandValueTv.setVisibility(View.VISIBLE);
-                    dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
-                    showWinnerTv.setVisibility(View.VISIBLE);
-                    showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
-                    dealerTotalTv.setVisibility(View.VISIBLE);
-                    sadFrog.setVisibility(View.INVISIBLE);
-                    newGame.payOut(betPlaced);
-
+                    communalCard.setVisibility(View.VISIBLE);
+                    communalCard.setImageResource(R.drawable.back);
+                    communalCardSuit.setVisibility(View.VISIBLE);
+                    communalCardTv.setVisibility(View.VISIBLE);
+                    communalDrawTextTv.setVisibility(View.VISIBLE);
+                    communalDrawTextTv.setText("Dealer drew:");
+                    communalCard.setImageResource(android.R.color.white);
+                    communalCardTv.setText(newGame.getPlayers().get(1).getHand().getCards().get(newGame.getPlayers().get(1).getHand().getNumberOfCards() - 1).getRank().getName());
                 }
             }.start();
         }
 
-        endOfRound();
+        new CountDownTimer(2000, 1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                dealerTotalTv.setVisibility(View.VISIBLE);
+                dealerHandValueTv.setVisibility(View.VISIBLE);
+                dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
+                sadFrog.setVisibility(View.INVISIBLE);
+                newGame.payOut(betPlaced);
+                showWinnerTv.setVisibility(View.VISIBLE);
+                showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
+
+                if (newGame.getPlayers().get(1).getHandValue() > 21 && newGame.getPlayers().get(1).getHandValue() < 21) {
+                    dealerBust.setText("Dealer is Bust!");
+                }
+
+                endOfRound();
+            }
+        }.start();
+
     }
 
 
@@ -460,7 +478,7 @@ public class GameActivity extends AppCompatActivity {
                     userCard1.setImageResource(android.R.color.white);
                     userCard1Suit2.setVisibility(View.VISIBLE);
                     userCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
-                    cardOneTv.setText(newGame.showUserCardOneValue());
+                    cardOneTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(0).getRank().getName());
                 }
             }.start();
 
@@ -478,7 +496,7 @@ public class GameActivity extends AppCompatActivity {
                     userCard2Suit2.setVisibility(View.VISIBLE);
                     userCard2Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
 
-                    cardTwoTv.setText(newGame.showUserCardTwoValue());
+                    cardTwoTv.setText(newGame.getPlayers().get(0).getHand().getCards().get(1).getRank().getName());
                 }
             }.start();
 
@@ -495,9 +513,9 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     dealerCard1.setImageResource(android.R.color.white);
-                    dealerCard1Suit2.setImageResource(newGame.getPlayers().get(0).getHand().getCards().get(0).getSuitImage());
+                    dealerCard1Suit2.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(0).getSuitImage());
                     dealerCard1Suit2.setVisibility(View.VISIBLE);
-                    dealerCardOneTv.setText(newGame.showDealerCardOneValue());
+                    dealerCardOneTv.setText(newGame.getPlayers().get(1).getHand().getCards().get(0).getRank().getName());
                 }
             }.start();
     }
@@ -505,7 +523,7 @@ public class GameActivity extends AppCompatActivity {
     public void displayDealerCardTwo(){
         dealerCard2.setImageResource(android.R.color.white);
         dealerCardTwoTv.setVisibility(View.VISIBLE);
-        dealerCardTwoTv.setText(newGame.showDealerCardTwoValue());
+        dealerCardTwoTv.setText(newGame.getPlayers().get(1).getHand().getCards().get(1).getRank().getName());
         dealerCard2Suit2.setVisibility(View.VISIBLE);
         dealerCard2Suit2.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage());
     }

@@ -58,15 +58,11 @@ public class Game {
         return dealer.getHandValue();
     }
 
-    public String showUserCardOneValue(){ return Integer.toString( this.player.getHand().getCards().get(0).getValue());}
-
-    public String showUserCardTwoValue(){ return Integer.toString( this.player.getHand().getCards().get(1).getValue());}
-
-    public String showDealerCardOneValue(){return Integer.toString( this.dealer.getHand().getCards().get(0).getValue()); }
-
-    public String showDealerCardTwoValue(){ return Integer.toString( this.dealer.getHand().getCards().get(1).getValue()); }
 
     public void twist(){
+        if (player.getHand().checkIfAce()) {
+            player.getHand().makeAcesLowIfBust();
+        }
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
     }
@@ -98,13 +94,20 @@ public class Game {
 //      Dealer logic
 
     public void dealerMove() {
+
+        if (dealer.getHand().checkIfAce()) {
+            dealer.getHand().makeAcesLowIfBust();
+        }
+        
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
         }
     }
 
     public void dealerTakesCard(){
-        dealer.dealCard(dealer, deck);
+        if (dealer.checkShouldTwist(dealer.getHandValue())){
+            dealer.dealCard(dealer, deck);
+        } else dealer.setStickOrTwist("f");
     }
 
 //     && dealer.getHandValue() <= 21

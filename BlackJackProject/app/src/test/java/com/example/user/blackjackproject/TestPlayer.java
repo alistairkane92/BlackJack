@@ -19,9 +19,9 @@ public class TestPlayer {
     @Before
     public void setup(){
         player = new Player("Ally", 1000);
-        card = new Card(Suit.DIAMONDS, Rank.TWO);
-        card2 = new Card(Suit.SPADES, Rank.TEN);
-        card3 = new Card(Suit.HEARTS, Rank.TEN);
+        card = new Card(Suit.DIAMONDS, Rank.TWO, 2);
+        card2 = new Card(Suit.SPADES, Rank.TEN, 3);
+        card3 = new Card(Suit.HEARTS, Rank.TEN, 1);
 
     }
 

@@ -14,7 +14,7 @@ public class TestCard {
 
     @Before
     public void setUp(){
-        card = new Card(Suit.CLUBS, Rank.EIGHT);
+        card = new Card(Suit.CLUBS, Rank.EIGHT, 1);
     }
 
     @Test
@@ -34,6 +34,6 @@ public class TestCard {
 
     @Test
     public void cardHasName() {
-        assertEquals("Eight of Clubs", card.prettyName());
+        assertEquals("8 of Clubs", card.prettyName());
     }
 }

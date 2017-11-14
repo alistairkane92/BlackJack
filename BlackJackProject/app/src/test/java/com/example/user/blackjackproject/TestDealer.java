@@ -28,8 +28,8 @@ public class TestDealer {
         player = new Player("Player1", 1000);
         spyDeck = Mockito.spy(deck);
         spyDealer = new Dealer("Dealer", 1000);
-        card1 = new Card(Suit.HEARTS, Rank.ACE);
-        card2 = new Card(Suit.CLUBS, Rank.QUEEN);
+        card1 = new Card(Suit.HEARTS, Rank.ACE, 1);
+        card2 = new Card(Suit.CLUBS, Rank.QUEEN, 3);
         players = new ArrayList<Participant>();
         players.add(player);
         players.add(spyDealer);
@@ -38,7 +38,7 @@ public class TestDealer {
 
     @Test
     public void dealerCanDeal(){
-        Mockito.when(spyDeck.getCard()).thenReturn(new Card(Suit.CLUBS, Rank.ACE));
+        Mockito.when(spyDeck.getCard()).thenReturn(new Card(Suit.CLUBS, Rank.ACE, 3));
         spyDealer.dealCard(player, spyDeck);
         assertEquals(1, player.getHand().getNumberOfCards());
         assertEquals(Suit.CLUBS, player.getHand().getCards().get(0).getSuit());
