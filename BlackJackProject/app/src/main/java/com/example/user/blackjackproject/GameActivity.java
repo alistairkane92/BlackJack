@@ -124,20 +124,6 @@ public class GameActivity extends AppCompatActivity {
         dealerHandValueTv.setVisibility(View.GONE);
     }
 
-    public void makeCardSuitsInvisible(){
-        userCard1Suit2.setVisibility(View.INVISIBLE);
-        userCard2Suit2.setVisibility(View.INVISIBLE);
-
-        dealerCard1Suit2.setVisibility(View.INVISIBLE);
-        dealerCard2Suit2.setVisibility(View.INVISIBLE);
-    }
-
-    public void revealDealerCardTwo(){
-        dealerCardTwoTv.setVisibility(View.VISIBLE);
-        dealerCard2.setImageResource(android.R.color.white);
-        dealerCard2Suit2.setVisibility(View.VISIBLE);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +189,87 @@ public class GameActivity extends AppCompatActivity {
         camera.setImageBitmap(bitmap);
     }
 
+    //TWIST/STICK/PLACE BET LOGIC
+
+    public void stick(View view) {
+        beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
+
+        placeBetBtn.setVisibility(View.VISIBLE);
+        betBar.setVisibility(View.VISIBLE);
+        selectedBetTv.setVisibility(View.VISIBLE);
+        showWinnerTv.setVisibility(View.VISIBLE);
+
+        stickBtn.setVisibility(View.INVISIBLE);
+        twistBtn.setVisibility(View.INVISIBLE);
+
+        dealerMove();
+    }
+
+    public void twist(View view) {
+        //deals new card and displays new result
+        //if bust needs to do dealer logic anyway
+
+        CountDownTimer delay = new CountDownTimer(1000, 1000) {
+            public void onFinish() {
+
+                beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
+
+                newGame.twist();
+                handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
+                checkBustTv.setText(newGame.displayBust());
+
+                if (newGame.displayBust().equals("You're BUST!")) {
+                    sadFrog.setVisibility(View.VISIBLE);
+                    dealerMove();
+                }
+            }
+            public void onTick(long millisUntilFinished){
+
+            }
+        }.start();
+    }
+
+    public void placeBet(View view) {
+        if (betPlaced > 0 ){
+            newGame.placeBet(betPlaced);
+            betBar.setVisibility(View.INVISIBLE);
+            placeBetBtn.setVisibility(View.INVISIBLE);
+            selectedBetTv.setVisibility(View.INVISIBLE);
+            handValueTv.setText("");
+
+            hideDealerCardTwo();
+
+            resetTable();
+
+            revealTheDeal();
+
+            setChipImageSize();
+            betBar.setMax(newGame.showUserFunds());
+            chips.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getApplicationContext(), "Please enter a valid bet", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
+    //VIEW CHANGES
+
+    public void makeCardSuitsInvisible(){
+        userCard1Suit2.setVisibility(View.INVISIBLE);
+        userCard2Suit2.setVisibility(View.INVISIBLE);
+
+        dealerCard1Suit2.setVisibility(View.INVISIBLE);
+        dealerCard2Suit2.setVisibility(View.INVISIBLE);
+    }
+
+    public void revealDealerCardTwo(){
+        dealerCardTwoTv.setVisibility(View.VISIBLE);
+        dealerCard2.setImageResource(android.R.color.white);
+        dealerCard2Suit2.setVisibility(View.VISIBLE);
+
+    }
     public void setChipImageSize(){
         chips.setVisibility(View.VISIBLE);
         if (betPlaced < 100) {
@@ -250,6 +317,8 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    //DISPLAYING CARDS
+
     public void displayUserCardOne(){
             new CountDownTimer(1000, 1000) {
                 @Override
@@ -265,30 +334,6 @@ public class GameActivity extends AppCompatActivity {
                     cardOneTv.setText(newGame.showUserCardOneValue());
                 }
             }.start();
-
-    }
-
-    public void revealTheDeal(){
-        newGame.deal();
-        displayUserCardOne();
-        displayUserCardTwo();
-        displayDealerCardOne();
-
-        new CountDownTimer(4000, 1000){
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                stickBtn.setVisibility(View.VISIBLE);
-                twistBtn.setVisibility(View.VISIBLE);
-                handValueTv.setVisibility(View.VISIBLE);
-                handValueTv.setText(newGame.showUserHandValue().toString());
-            }
-
-        }.start();
 
     }
 
@@ -334,13 +379,19 @@ public class GameActivity extends AppCompatActivity {
         dealerCardTwoTv.setText(newGame.showDealerCardTwoValue());
     }
 
-    public void dealerMove(){
-        //Dealer Move
+    public void hideDealerCardTwo() {
+        dealerCard2.setImageResource(R.drawable.back);
+        dealerCard2Suit2.setVisibility(View.INVISIBLE);
+        dealerCardTwoTv.setVisibility(View.INVISIBLE);
+    }
 
-        revealDealerCardTwo();
-        newGame.dealerMove();
+    public void revealTheDeal(){
+        newGame.deal();
+        displayUserCardOne();
+        displayUserCardTwo();
+        displayDealerCardOne();
 
-        CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
+        new CountDownTimer(4000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -348,61 +399,13 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                //update Views
-                dealerHandValueTv.setVisibility(View.VISIBLE);
-                dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
-                showWinnerTv.setVisibility(View.VISIBLE);
-                showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
-
-                newGame.payOut(betPlaced);
-                displayDealerCardTwo();
-                endOfRound();
+                stickBtn.setVisibility(View.VISIBLE);
+                twistBtn.setVisibility(View.VISIBLE);
+                handValueTv.setVisibility(View.VISIBLE);
+                handValueTv.setText(newGame.showUserHandValue().toString());
             }
+
         }.start();
-    }
-
-    public void stick(View view) {
-        beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
-
-        placeBetBtn.setVisibility(View.VISIBLE);
-        betBar.setVisibility(View.VISIBLE);
-        selectedBetTv.setVisibility(View.VISIBLE);
-        showWinnerTv.setVisibility(View.VISIBLE);
-
-        stickBtn.setVisibility(View.INVISIBLE);
-        twistBtn.setVisibility(View.INVISIBLE);
-
-        dealerMove();
-    }
-
-    public void twist(View view) {
-        //deals new card and displays new result
-        //if bust needs to do dealer logic anyway
-
-        CountDownTimer delay = new CountDownTimer(1000, 1000) {
-            public void onFinish() {
-
-                beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
-
-                newGame.twist();
-                handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
-                checkBustTv.setText(newGame.displayBust());
-
-                if (newGame.displayBust().equals("You're BUST!")) {
-                    sadFrog.setVisibility(View.VISIBLE);
-                    dealerMove();
-                }
-            }
-            public void onTick(long millisUntilFinished){
-
-            }
-        }.start();
-    }
-
-    public void hideDealerCardTwo() {
-        dealerCard2.setImageResource(R.drawable.back);
-        dealerCard2Suit2.setVisibility(View.INVISIBLE);
-        dealerCardTwoTv.setVisibility(View.INVISIBLE);
     }
 
     public void resetTable(){
@@ -422,29 +425,38 @@ public class GameActivity extends AppCompatActivity {
         userCard2Suit2.setVisibility(View.INVISIBLE);
         dealerCard1Suit2.setVisibility(View.INVISIBLE);
     }
-    public void placeBet(View view) {
-        if (betPlaced > 0 ){
-            newGame.placeBet(betPlaced);
-            betBar.setVisibility(View.INVISIBLE);
-            placeBetBtn.setVisibility(View.INVISIBLE);
-            selectedBetTv.setVisibility(View.INVISIBLE);
-            handValueTv.setText("");
-
-            hideDealerCardTwo();
-
-            resetTable();
-
-            revealTheDeal();
-
-            setChipImageSize();
-            betBar.setMax(newGame.showUserFunds());
-            chips.setVisibility(View.VISIBLE);
-        } else {
-            Toast.makeText(getApplicationContext(), "Please enter a valid bet", Toast.LENGTH_SHORT).show();
-        }
 
 
+    //DEALER MOVE
+
+    public void dealerMove(){
+
+
+        newGame.dealerMove();
+
+        CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                //update Views
+                revealDealerCardTwo();
+                dealerHandValueTv.setVisibility(View.VISIBLE);
+                dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
+                showWinnerTv.setVisibility(View.VISIBLE);
+                showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
+
+                newGame.payOut(betPlaced);
+                displayDealerCardTwo();
+                endOfRound();
+            }
+        }.start();
     }
+
+
 
     public void reBuyPage(View view) {
         Intent i = new Intent(this, RebuyActivity.class);
