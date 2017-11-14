@@ -247,9 +247,6 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-
-
-
     //Game Logic - Stick, Twist, Place Bet, Dealer Move
 
 
@@ -270,7 +267,7 @@ public class GameActivity extends AppCompatActivity {
     public void twist(View view) {
         //deals new card and displays new result
         //if bust needs to do dealer logic anyway
-
+        communalDrawTextTv.setVisibility(View.VISIBLE);
         communalDrawTextTv.setText("You drew:");
 
         CountDownTimer delay = new CountDownTimer(1000, 1000) {
@@ -280,7 +277,7 @@ public class GameActivity extends AppCompatActivity {
 
                 newGame.twist();
 
-                communalDrawTextTv.setVisibility(View.VISIBLE);
+
                 communalCard.setVisibility(View.VISIBLE);
                 communalCard.setImageResource(android.R.color.white);
                 communalCardSuit.setVisibility(View.VISIBLE);
@@ -339,6 +336,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void dealerMove(){
         newGame.dealerMove();
+        revealDealerCardTwo();
 
         CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
             @Override
@@ -349,7 +347,6 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 //update Views
-                revealDealerCardTwo();
                 dealerHandValueTv.setVisibility(View.VISIBLE);
                 dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
                 showWinnerTv.setVisibility(View.VISIBLE);
