@@ -17,16 +17,22 @@ import android.widget.Toast;
 public class GameActivity extends AppCompatActivity {
     private ImageView camera;
     private ImageView chips;
+
+    //Cards
     private ImageView userCard1;
     private ImageView userCard2;
     private ImageView dealerCard1;
     private ImageView dealerCard2;
-    private ImageView sadFrog;
+    private ImageView communalCard;
 
+    //Card Suits
     private ImageView dealerCard1Suit2;
     private ImageView dealerCard2Suit2;
     private ImageView userCard1Suit2;
     private ImageView userCard2Suit2;
+    private ImageView communalCardSuit;
+
+    private ImageView sadFrog;
 
     private Button placeBetBtn;
     private Button stickBtn;
@@ -43,6 +49,11 @@ public class GameActivity extends AppCompatActivity {
     private Deck deck;
     private Integer betPlaced;
 
+    private TextView userTotalTv;
+    private TextView dealerTotalTv;
+
+    private TextView communalDrawTextTv;
+
     private TextView handValueTv;
     private TextView dealerHandValueTv;
     private TextView showWinnerTv;
@@ -51,12 +62,16 @@ public class GameActivity extends AppCompatActivity {
     private TextView selectedBetTv;
     private TextView name;
 
+    //Card Values
     private TextView cardOneTv;
     private TextView cardTwoTv;
     private TextView dealerCardOneTv;
     private TextView dealerCardTwoTv;
+    private TextView communalCardTv;
 
+    //Betting Bar
     private SeekBar betBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +108,8 @@ public class GameActivity extends AppCompatActivity {
         userCard2 = (ImageView) findViewById(R.id.userCard2);
         dealerCard1 = (ImageView) findViewById(R.id.dealerCard1);
         dealerCard2 = (ImageView) findViewById(R.id.dealerCard2);
+        communalCard = (ImageView) findViewById(R.id.communalCard);
+
 
         //Suits next to value on card
         userCard1Suit2 = (ImageView) findViewById(R.id.card1suit2);
@@ -101,11 +118,14 @@ public class GameActivity extends AppCompatActivity {
         dealerCard1Suit2 = (ImageView) findViewById(R.id.dealercard1suit2);
         dealerCard2Suit2 = (ImageView) findViewById(R.id.dealercard2suit2);
 
+        communalCardSuit = (ImageView) findViewById(R.id.communalCardSuit);
+
         //Display Value on cards
         cardOneTv = (TextView) findViewById(R.id.cardOneTv);
         cardTwoTv = (TextView) findViewById(R.id.cardTwoTv);
         dealerCardOneTv = (TextView) findViewById(R.id.dealerCardOneTv);
         dealerCardTwoTv = (TextView) findViewById(R.id.dealerCardTwoTv);
+        communalCardTv = (TextView) findViewById(R.id.communalValueTv);
 
         //Sad frog if bust
         sadFrog = (ImageView) findViewById(R.id.sadFrog);
@@ -120,6 +140,9 @@ public class GameActivity extends AppCompatActivity {
         handValueTv = (TextView) findViewById(R.id.handValueTv);
         dealerHandValueTv = (TextView) findViewById(R.id.dealerHandValueTv);
 
+        //Communal "You Drew" text
+        communalDrawTextTv = (TextView) findViewById(R.id.communalDrawTextTv);
+        
         //Win or bust TextViews
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
@@ -145,6 +168,10 @@ public class GameActivity extends AppCompatActivity {
         String newName = extras.getString("name");
         newGame.setUserName(newName);
         name.setText(newName);
+
+        //Text containing "Total:"
+        userTotalTv = (TextView) findViewById(R.id.userTotalTv);
+        dealerTotalTv = (TextView) findViewById(R.id.dealerTotalTv);
     }
 
     public void setUpViews(){
@@ -163,6 +190,9 @@ public class GameActivity extends AppCompatActivity {
 
         dealerCard1Suit2.setVisibility(View.INVISIBLE);
         dealerCard2Suit2.setVisibility(View.INVISIBLE);
+
+        dealerTotalTv.setVisibility(View.INVISIBLE);
+        userTotalTv.setVisibility(View.INVISIBLE);
 
         //Display user funds
 
@@ -258,10 +288,6 @@ public class GameActivity extends AppCompatActivity {
     public void placeBet(View view) {
         if (betPlaced > 0) {
             newGame.placeBet(betPlaced);
-            betBar.setVisibility(View.INVISIBLE);
-            placeBetBtn.setVisibility(View.INVISIBLE);
-            selectedBetTv.setVisibility(View.INVISIBLE);
-            handValueTv.setText("");
 
             hideDealerCardTwo();
 
@@ -306,6 +332,7 @@ public class GameActivity extends AppCompatActivity {
     //VIEW CHANGES
 
     public void revealDealerCardTwo(){
+        dealerTotalTv.setVisibility(View.VISIBLE);
         dealerCardTwoTv.setVisibility(View.VISIBLE);
         dealerCard2.setImageResource(android.R.color.white);
         dealerCard2Suit2.setVisibility(View.VISIBLE);
@@ -332,6 +359,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void endOfRound(){
+
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
@@ -440,6 +468,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                userTotalTv.setVisibility(View.VISIBLE);
                 stickBtn.setVisibility(View.VISIBLE);
                 twistBtn.setVisibility(View.VISIBLE);
                 handValueTv.setVisibility(View.VISIBLE);
@@ -466,6 +495,16 @@ public class GameActivity extends AppCompatActivity {
         userCard2Suit2.setVisibility(View.INVISIBLE);
         dealerCard1Suit2.setVisibility(View.INVISIBLE);
         showWinnerTv.setVisibility(View.INVISIBLE);
+        handValueTv.setVisibility(View.INVISIBLE);
+        dealerHandValueTv.setVisibility(View.INVISIBLE);
+
+        userTotalTv.setVisibility(View.INVISIBLE);
+        dealerTotalTv.setVisibility(View.INVISIBLE);
+
+        betBar.setVisibility(View.INVISIBLE);
+        placeBetBtn.setVisibility(View.INVISIBLE);
+        selectedBetTv.setVisibility(View.INVISIBLE);
+        handValueTv.setText("");
     }
 
     //ReBuy Button
