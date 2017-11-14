@@ -71,9 +71,12 @@ public class TestHand {
     }
 
     @Test
-    public void testAcesOnlyMadeLow() throws Exception {
+    public void testAcesOnlyMadeLowOnce() throws Exception {
         hand.addCard(card);
-
-
+        hand.addCard(card3);
+        hand.addCard(card3);
+        assertEquals(21, hand.getHandValue());
+        hand.addCard(card3);
+        assertEquals(31, hand.getHandValue());
     }
 }

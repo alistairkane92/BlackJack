@@ -39,11 +39,6 @@ public class Game {
     }
 
 
-
-    public String showUserHand(){
-        return player.describeHand();
-    }
-
     public Integer showUserHandValue(){
         return player.getHandValue();
     }
@@ -51,10 +46,6 @@ public class Game {
     public int showUserFunds(){ return player.getFunds(); }
 
     public void setUserFunds(int newAmount){player.setFunds(newAmount);}
-
-    public String showDealerHand(){
-        return dealer.describeHand();
-    }
 
     public Integer showDealerHandValue(){
         return dealer.getHandValue();
@@ -80,14 +71,6 @@ public class Game {
             dealer.dealCard(dealer, deck);
         }
     }
-
-    public void dealerTakesCard(){
-        if (dealer.checkShouldTwist(dealer.getHandValue())){
-            dealer.dealCard(dealer, deck);
-        } else dealer.setStickOrTwist("f");
-    }
-
-//     && dealer.getHandValue() <= 21
 
     public boolean checkIfDrawDealerWins(ArrayList<Participant> players){
         if (players.get(0).getHandValue() == players.get(1).getHandValue() && players.get(1).getHandValue() >= 16 && players.get(1).getHandValue() <= 21){
@@ -136,8 +119,6 @@ public class Game {
             player.setFunds(player.getFunds() + betPlaced);
         }
     }
-
-
 
     public void setUserName(String userName) {
         this.player.setName(userName);

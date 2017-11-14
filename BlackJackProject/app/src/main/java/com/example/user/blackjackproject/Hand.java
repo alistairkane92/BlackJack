@@ -16,7 +16,6 @@ public class Hand {
 
     public Hand() {
         this.cards = new ArrayList<>();
-        aceCounter = numberOfAcesInHand();
     }
 
 
@@ -26,17 +25,16 @@ public class Hand {
 
     public int getHandValue() {
         int total = 0;
-        int aceCounter = numberOfAcesInHand();
+            for (Card card : this.cards) {
+                total += card.getValue();
+            }
+            aceCounter = numberOfAcesInHand();
 
-        for (Card card : this.cards){
-            total += card.getValue();
-        }
-
-        while (total > 21 && aceCounter > 0){
-            total -= 10;
-            aceCounter --;
-        }
-
+            while (total > 21 && aceCounter > 0) {
+                total -= 10;
+                aceCounter--;
+            }
+            aceCounter = 0;
         return total;
 
     }
@@ -68,13 +66,15 @@ public class Hand {
     //pass method into makeAceLowIfBust() and multiply 10 * numberOfAces counter
 
     public int numberOfAcesInHand(){
+        int aces = 0;
+
         for (Card card : cards) {
             if (card.getRank() == Rank.ACE){
-                aceCounter ++;
+                aces ++;
             }
         }
 
-        return aceCounter;
+        return aces;
 
     }
 

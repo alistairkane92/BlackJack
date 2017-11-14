@@ -13,10 +13,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.widget.Toast.makeText;
+
 
 public class GameActivity extends AppCompatActivity {
     private ImageView camera;
     private ImageView chips;
+
+    private Toast condition;
 
     //Cards
     private ImageView userCard1;
@@ -164,6 +168,7 @@ public class GameActivity extends AppCompatActivity {
         deck = new Deck();
         newGame = new Game(deck);
 
+        //Player Dealer instances
         player = (newGame.getPlayers().get(0));
         dealer = (newGame.getPlayers().get(1));
 
@@ -212,7 +217,6 @@ public class GameActivity extends AppCompatActivity {
         showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
     }
 
-
     public void createBetBar() {
         betBar.setMax(newGame.showUserFunds());
 
@@ -232,18 +236,18 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                condition.cancel();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("£" + progress + "/" + newGame.showUserFunds());
                 if (progress < 5) {
-                    Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT);
                 }
                 betPlaced = progress;
             }
         });
-
     }
 
     @Override
@@ -308,6 +312,8 @@ public class GameActivity extends AppCompatActivity {
                     sadFrog.setVisibility(View.VISIBLE);
                     checkBustTv.setText(newGame.displayBust());
                     dealerMove();
+                    stickBtn.setVisibility(View.INVISIBLE);
+                    twistBtn.setVisibility(View.INVISIBLE);
                 }
                 handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
 
@@ -334,7 +340,8 @@ public class GameActivity extends AppCompatActivity {
             betBar.setMax(newGame.showUserFunds());
             chips.setVisibility(View.VISIBLE);
         } else {
-            Toast.makeText(getApplicationContext(), "Please enter a valid bet", Toast.LENGTH_SHORT).show();
+            Toast condition = Toast.makeText(getApplicationContext(), "Please enter a valid bet", Toast.LENGTH_SHORT);
+            condition.show();
         }
     }
 
@@ -437,11 +444,11 @@ public class GameActivity extends AppCompatActivity {
         String showAmountWon = Integer.toString(betPlaced);
 
         if (newGame.showUserFunds() > beforeWinAmount){
-            Toast.makeText(getApplicationContext(), "You just won £" + showAmountWon + "!!", Toast.LENGTH_SHORT).show();
+            makeText(getApplicationContext(), "You just won £" + showAmountWon + "!!", Toast.LENGTH_SHORT).show();
         }
 
         if (!player.getHand().checkBust()){
-            Toast.makeText(getApplicationContext(), "Place your bet please!", Toast.LENGTH_LONG).show();
+            makeText(getApplicationContext(), "Place your bet please!", Toast.LENGTH_LONG).show();
         }
 
     }
