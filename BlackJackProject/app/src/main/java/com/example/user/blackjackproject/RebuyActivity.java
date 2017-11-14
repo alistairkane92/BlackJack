@@ -22,7 +22,7 @@ public class RebuyActivity extends AppCompatActivity {
         extras = getIntent().getExtras();
         name = extras.getString("name");
 
-        rebuyAmount = (EditText) findViewById(R.id.buyInAmountEt);
+        rebuyAmount = (EditText) findViewById(R.id.buyInAmount);
         rebuyBtn = (Button) findViewById(R.id.buyInBtn);
     }
 
