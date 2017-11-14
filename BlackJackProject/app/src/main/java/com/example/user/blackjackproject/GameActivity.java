@@ -336,7 +336,8 @@ public class GameActivity extends AppCompatActivity {
 
     public void dealerMove(){
         newGame.dealerMove();
-        revealDealerCardTwo();
+
+        displayDealerCardTwo();
 
         CountDownTimer secondDelay = new CountDownTimer(1500, 1000) {
             @Override
@@ -351,9 +352,9 @@ public class GameActivity extends AppCompatActivity {
                 dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
                 showWinnerTv.setVisibility(View.VISIBLE);
                 showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
-
+                dealerTotalTv.setVisibility(View.VISIBLE);
+                sadFrog.setVisibility(View.INVISIBLE);
                 newGame.payOut(betPlaced);
-                displayDealerCardTwo();
                 endOfRound();
             }
         }.start();
@@ -362,13 +363,6 @@ public class GameActivity extends AppCompatActivity {
 
     //VIEW CHANGES
 
-    public void revealDealerCardTwo(){
-        dealerTotalTv.setVisibility(View.VISIBLE);
-        dealerCardTwoTv.setVisibility(View.VISIBLE);
-        dealerCard2.setImageResource(android.R.color.white);
-        dealerCard2Suit2.setVisibility(View.VISIBLE);
-
-    }
     public void setChipImageSize(){
         chips.setVisibility(View.VISIBLE);
         if (betPlaced < 100) {
@@ -474,9 +468,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void displayDealerCardTwo(){
-            dealerCard2Suit2.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage());
-        sadFrog.setVisibility(View.INVISIBLE);
+        dealerCard2.setImageResource(android.R.color.white);
+        dealerCardTwoTv.setVisibility(View.VISIBLE);
         dealerCardTwoTv.setText(newGame.showDealerCardTwoValue());
+        dealerCard2Suit2.setVisibility(View.VISIBLE);
+        dealerCard2Suit2.setImageResource(newGame.getPlayers().get(1).getHand().getCards().get(1).getSuitImage());
     }
 
     public void hideDealerCardTwo() {
