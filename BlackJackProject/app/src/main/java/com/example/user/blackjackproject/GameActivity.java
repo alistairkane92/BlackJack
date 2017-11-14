@@ -381,7 +381,7 @@ public class GameActivity extends AppCompatActivity {
                 dealerHandValueTv.setVisibility(View.VISIBLE);
                 dealerHandValueTv.setText(newGame.showDealerHandValue().toString());
                 sadFrog.setVisibility(View.INVISIBLE);
-                newGame.payOut(betPlaced);
+                newGame.payOut(betPlaced, player);
                 showWinnerTv.setVisibility(View.VISIBLE);
                 showWinnerTv.setText(newGame.displayWinner().toString() + " wins!");
 

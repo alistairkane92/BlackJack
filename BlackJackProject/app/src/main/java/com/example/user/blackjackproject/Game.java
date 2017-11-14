@@ -24,6 +24,8 @@ public class Game {
         players.add(dealer);
     }
 
+
+
     public ArrayList<Participant> getPlayers() {
         return players;
     }
@@ -37,6 +39,8 @@ public class Game {
 
         dealer.startDealing(this.players, this.deck);
     }
+
+
 
     public String showUserHand(){
         return player.describeHand();
@@ -154,11 +158,9 @@ public class Game {
         player.setFunds(newFunds);
     }
 
-    public void payOut(Integer betPlaced){
-        Participant player1 = players.get(0);
-
-        if (checkWinner(players).equals(player1.getName())){
-            player1.setFunds(player1.getFunds() + betPlaced * 2);
+    public void payOut(Integer betPlaced, Participant player){
+        if (checkWinner(players).equals(player.getName())){
+            player.setFunds(player.getFunds() + betPlaced);
         }
     }
 
