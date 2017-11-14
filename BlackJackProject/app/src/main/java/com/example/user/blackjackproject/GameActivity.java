@@ -278,6 +278,8 @@ public class GameActivity extends AppCompatActivity {
                 newGame.twist();
 
                 communalDrawTextTv.setVisibility(View.VISIBLE);
+                communalDrawTextTv.setText("You drew:");
+                communalCard.setVisibility(View.VISIBLE);
                 communalCard.setImageResource(android.R.color.white);
                 communalCardSuit.setVisibility(View.VISIBLE);
                 communalCardTv.setVisibility(View.VISIBLE);
