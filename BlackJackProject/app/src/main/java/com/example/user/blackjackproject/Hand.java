@@ -2,6 +2,8 @@ package com.example.user.blackjackproject;
 
 import java.util.ArrayList;
 
+import static android.R.attr.name;
+
 /**
  * Created by user on 10/11/2017.
  */
@@ -9,26 +11,34 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> cards;
-    private int value;
     private int aceCounter;
 
 
     public Hand() {
         this.cards = new ArrayList<>();
-        value = 0;
         aceCounter = numberOfAcesInHand();
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
 
     public ArrayList<Card> getCards() {
         return cards;
     }
 
     public int getHandValue() {
-        return this.value;
+        int total = 0;
+        int aceCounter = numberOfAcesInHand();
+
+        for (Card card : this.cards){
+            total += card.getValue();
+        }
+
+        while (total > 21 && aceCounter > 0){
+            total -= 10;
+            aceCounter --;
+        }
+
+        return total;
+
     }
 
     public int getNumberOfCards() {
@@ -37,11 +47,6 @@ public class Hand {
 
     public void addCard(Card card) {
         this.cards.add(card);
-        this.value += card.getValue();
-
-        if (checkBust()){
-            makeAcesLowIfBust();
-        }
     }
 
     public String describeHand() {
@@ -77,22 +82,9 @@ public class Hand {
         return getHandValue() > 21;
     }
 
-    public int makeAcesLowIfBust(){
-            while (checkBust() && numberOfAcesInHand() > 0) {
-                this.value -= 10;
-                aceCounter--;
-        }
-
-        return aceCounter;
-    }
-
 
     public void emptyHand(){
         cards.clear();
-    }
-
-    public void emptyValues(){
-        setValue(0);
     }
 }
 

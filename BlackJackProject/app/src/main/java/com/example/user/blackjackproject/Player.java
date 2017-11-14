@@ -53,10 +53,6 @@ public class Player implements Participant {
         this.hand.emptyHand();
     }
 
-    public void resetHandValue(){
-        this.hand.emptyValues();
-    }
-
     @Override
     public int getHandValue() {
         return this.hand.getHandValue();

@@ -40,8 +40,7 @@ public class TestHand {
     @Test
     public void handHasValue(){
         hand.addCard(card);
-        hand.addCard(card2);
-        assertEquals(22, hand.getHandValue());
+        assertEquals(11, hand.getHandValue());
     }
 
     @Test
@@ -49,7 +48,6 @@ public class TestHand {
         hand.addCard(card);
         hand.addCard(card2);
         hand.addCard(card2);
-        hand.makeAcesLowIfBust();
         assertEquals(13, hand.getHandValue());
     }
 
@@ -69,7 +67,13 @@ public class TestHand {
         hand.addCard(card);
         hand.addCard(card3);
         hand.addCard(card3);
-        hand.makeAcesLowIfBust();
         assertEquals(24, hand.getHandValue());
+    }
+
+    @Test
+    public void testAcesOnlyMadeLow() throws Exception {
+        hand.addCard(card);
+
+
     }
 }

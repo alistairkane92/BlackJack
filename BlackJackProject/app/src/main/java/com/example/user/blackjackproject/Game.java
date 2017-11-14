@@ -33,8 +33,6 @@ public class Game {
     public void deal(){
         dealer.setMaxDealerFunds(player.getFunds());
         dealer.returnCards();
-        dealer.resetHandValue();
-        player.resetHandValue();
         player.returnCards();
 
         dealer.startDealing(this.players, this.deck);
@@ -62,12 +60,6 @@ public class Game {
         return dealer.getHandValue();
     }
 
-    public void makeAcesLow(Participant player){
-        if (player.getHand().checkIfAce() && player.getHandValue() > 21){
-            player.getHand().makeAcesLowIfBust();
-        }
-    }
-
     public void twist(){
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
@@ -81,31 +73,12 @@ public class Game {
         }
     }
 
-    public void stickOrTwistAction() {
-        for (int i = 0; i < players.size() - 1; i++) {
-            Participant player = players.get(i);
-            if (player.getHand().checkIfAce()) {
-                player.getHand().makeAcesLowIfBust();
-            }
-            while (!player.getHand().checkBust() && player.getStickOrTwist().equals("t")) {
-                player.setStickOrTwist("t");
-
-                if (player.getStickOrTwist().equals("t")) {
-                    dealer.dealCard(player, deck);
-                }
-            }
-        }
-    }
-
 //      Dealer logic
 
     public void dealerMove() {
-
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
         }
-        makeAcesLow(dealer);
-
     }
 
     public void dealerTakesCard(){
