@@ -256,12 +256,13 @@ public class GameActivity extends AppCompatActivity {
     public void stick(View view) {
         beforeWinAmount = (newGame.getPlayers().get(0).getFunds());
 
-        placeBetBtn.setVisibility(View.VISIBLE);
-        betBar.setVisibility(View.VISIBLE);
-        selectedBetTv.setVisibility(View.VISIBLE);
+        placeBetBtn.setVisibility(View.INVISIBLE);
+        betBar.setVisibility(View.INVISIBLE);
+        selectedBetTv.setVisibility(View.INVISIBLE);
 
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
+
 
         dealerMove();
     }
@@ -269,6 +270,8 @@ public class GameActivity extends AppCompatActivity {
     public void twist(View view) {
         //deals new card and displays new result
         //if bust needs to do dealer logic anyway
+
+        communalDrawTextTv.setText("You drew:");
 
         CountDownTimer delay = new CountDownTimer(1000, 1000) {
             public void onFinish() {
@@ -278,7 +281,6 @@ public class GameActivity extends AppCompatActivity {
                 newGame.twist();
 
                 communalDrawTextTv.setVisibility(View.VISIBLE);
-                communalDrawTextTv.setText("You drew:");
                 communalCard.setVisibility(View.VISIBLE);
                 communalCard.setImageResource(android.R.color.white);
                 communalCardSuit.setVisibility(View.VISIBLE);
