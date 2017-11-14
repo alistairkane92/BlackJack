@@ -59,16 +59,14 @@ public class Game {
     }
 
     public void makeAcesLow(Participant player){
-        if (player.getHand().checkIfAce()){
+        if (player.getHand().checkIfAce() && player.getHandValue() > 21){
             player.getHand().makeAcesLowIfBust();
         }
     }
 
     public void twist(){
-
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
-        makeAcesLow(player);
     }
 
     public String displayBust(){

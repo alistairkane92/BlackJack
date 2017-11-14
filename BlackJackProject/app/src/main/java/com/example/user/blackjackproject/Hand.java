@@ -36,6 +36,10 @@ public class Hand {
     public void addCard(Card card) {
         this.cards.add(card);
         this.value += card.getValue();
+
+        if (checkBust() && checkIfAce()) {
+            makeAcesLowIfBust();
+        }
     }
 
     public String describeHand() {

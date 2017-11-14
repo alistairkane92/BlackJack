@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ReBuyActivity extends AppCompatActivity {
-    Button reBuyAmount;
+    Button reBuyBtn;
+    EditText reBuyAmount;
 
 
     @Override
@@ -16,7 +17,8 @@ public class ReBuyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_buy);
 
-    reBuyAmount = (Button) findViewById(R.id.buyInBtn);
+        reBuyBtn = (Button) findViewById(R.id.buyInBtn);
+        reBuyAmount = (EditText) findViewById(R.id.buyInAmount);
     }
 
     public void goToGame(View view) {
