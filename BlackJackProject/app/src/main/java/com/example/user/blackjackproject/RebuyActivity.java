@@ -6,34 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class RebuyActivity extends AppCompatActivity {
-    EditText rebuyAmount;
-    Button rebuyBtn;
-    Bundle extras;
-    String name;
+public class ReBuyActivity extends AppCompatActivity {
+    Button reBuyAmount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rebuy);
+        setContentView(R.layout.activity_re_buy);
 
-        extras = getIntent().getExtras();
-        name = extras.getString("name");
-
-        rebuyAmount = (EditText) findViewById(R.id.buyInAmount);
-        rebuyBtn = (Button) findViewById(R.id.buyInBtn);
+    reBuyAmount = (Button) findViewById(R.id.buyInBtn);
     }
 
     public void goToGame(View view) {
-        Intent i = new Intent(this, GameActivity.class);
-        Integer reBuy = Integer.parseInt(rebuyAmount.getText().toString().toUpperCase());
+        Integer reBuy = Integer.parseInt(reBuyAmount.getText().toString());
 
-        if (reBuy > 0) {
-            i.putExtra("name", name);
-            i.putExtra("newFunds", reBuy);
-            startActivity(i);
-        } else  Toast.makeText(getApplicationContext(), "Please enter a valid amount", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, GameActivity.class);
+        i.putExtra("newFunds", reBuy);
+        startActivity(i);
+
     }
 }

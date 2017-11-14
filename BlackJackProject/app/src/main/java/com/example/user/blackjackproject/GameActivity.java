@@ -167,7 +167,7 @@ public class GameActivity extends AppCompatActivity {
         player = (newGame.getPlayers().get(0));
         dealer = (newGame.getPlayers().get(1));
 
-        //Extras from Rebuy Page
+        //Extras from Buy in Page
         extras = getIntent().getExtras();
         newFunds = extras.getInt("newFunds");
         newGame.setUserFunds(newFunds);
@@ -448,12 +448,12 @@ public class GameActivity extends AppCompatActivity {
         twistBtn.setVisibility(View.INVISIBLE);
 
 
-        showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
+        showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
         betBar.setMax(newGame.showUserFunds());
 
         makeRebuyVisibleIfBust();
 
-        String showAmountWon = Integer.toString(betPlaced * 2);
+        String showAmountWon = Integer.toString(betPlaced);
 
         if (newGame.showUserFunds() > beforeWinAmount){
             Toast.makeText(getApplicationContext(), "You just won £" + showAmountWon + "!!", Toast.LENGTH_SHORT).show();
@@ -563,7 +563,6 @@ public class GameActivity extends AppCompatActivity {
         dealerHandValueTv.setText("");
         showWinnerTv.setText("");
         checkBustTv.setText("");
-        showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
         userCard1.setImageResource(R.drawable.back);
         userCard2.setImageResource(R.drawable.back);
         dealerCard1.setImageResource(R.drawable.back);
@@ -594,9 +593,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     //ReBuy Button
-
     public void reBuyPage(View view) {
-        Intent i = new Intent(this, RebuyActivity.class);
+        Intent i = new Intent(this, ReBuyActivity.class);
         startActivity(i);
     }
 

@@ -65,9 +65,10 @@ public class Game {
     }
 
     public void twist(){
-        makeAcesLow(player);
+
         //deals player another card and display new result
         dealer.dealCard(players.get(0), deck);
+        makeAcesLow(player);
     }
 
     public String displayBust(){
@@ -98,11 +99,11 @@ public class Game {
 
     public void dealerMove() {
 
-        makeAcesLow(dealer);
-
         while (dealer.checkShouldTwist(dealer.getHandValue())) {
             dealer.dealCard(dealer, deck);
         }
+        makeAcesLow(dealer);
+
     }
 
     public void dealerTakesCard(){

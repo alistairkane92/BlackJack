@@ -1,14 +1,9 @@
 package com.example.user.blackjackproject;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +21,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     public void goToMain(View view) {
-        Intent i = new Intent(this, RebuyActivity.class);
+        Intent i = new Intent(this, BuyInActivity.class);
         String passableName = name.getText().toString().toUpperCase();
 
         if (passableName.equals("")) {

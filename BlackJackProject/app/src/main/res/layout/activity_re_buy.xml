@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.blackjackproject.RebuyActivity">
+    tools:context="com.example.user.blackjackproject.ReBuyActivity">
 
     <Button
         android:id="@+id/buyInBtn"
@@ -15,12 +15,12 @@
         android:layout_marginRight="8dp"
         android:background="@color/colorAccent"
         android:onClick="goToGame"
-        android:text="BUY IN"
+        android:text="REBUY"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.498" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="How much do you want to Buy In for?"
+        android:text="How much do you want to Rebuy for?"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -79,6 +79,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
-
 
 </android.support.constraint.ConstraintLayout>
