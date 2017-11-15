@@ -539,9 +539,10 @@ public class GameActivity extends AppCompatActivity {
                 if (newGame.checkIfBlackJack()){
                     //make blackjack views visible and go back to start and payout loads
                     resetTable();
-                    newGame.payOut(betPlaced * 5, player);
-                    showFundsTv.setText(player.getFunds());
-                    Toast.makeText(getApplicationContext(), "YOU JUST GOT BLACKJACK!", Toast.LENGTH_SHORT).show();
+                    int jackpot = betPlaced * 5;
+                    newGame.payOut(jackpot, player);
+                    showFundsTv.setText(Integer.toString(newGame.showUserFunds()));
+                    Toast.makeText(getApplicationContext(), "YOU JUST GOT BLACKJACK! You won £" + Integer.toString                      (jackpot) + "!", Toast.LENGTH_SHORT).show();
                     betBar.setVisibility(View.VISIBLE);
                     placeBetBtn.setVisibility(View.VISIBLE);
                 } else {
