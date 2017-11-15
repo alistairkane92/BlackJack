@@ -17,7 +17,13 @@ import static android.widget.Toast.makeText;
 
 
 public class GameActivity extends AppCompatActivity {
+    //Extras
+    private Bundle extras;
+
+    //Camera
     private ImageView camera;
+
+    //Chips
     private ImageView chips;
 
     //Cards
@@ -34,31 +40,33 @@ public class GameActivity extends AppCompatActivity {
     private ImageView userCard2Suit2;
     private ImageView communalCardSuit;
 
+    //BustImage
     private ImageView sadFrog;
 
+    //Buttons
     private Button placeBetBtn;
     private Button stickBtn;
     private Button twistBtn;
     private Button rebuyBtn;
     private Button btnCamera;
 
+    //Dealer/Player
     private Participant dealer;
     private Participant player;
 
-    private Bundle extras;
-
+    //Bet win/loss integers
     private Integer newFunds;
     private Integer beforeWinAmount;
-
-    private Game newGame;
-    private Deck deck;
     private Integer betPlaced;
 
+    //Instances of Game and Deck (which also instance Player & Dealer)
+    private Game newGame;
+    private Deck deck;
+
+    //Display Tvs
     private TextView userTotalTv;
     private TextView dealerTotalTv;
-
     private TextView communalDrawTextTv;
-
     private TextView handValueTv;
     private TextView dealerHandValueTv;
     private TextView showWinnerTv;
@@ -68,7 +76,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView selectedBetTv;
     private TextView name;
 
-    //Card Values
+    //Card Values Tvs
     private TextView cardOneTv;
     private TextView cardTwoTv;
     private TextView dealerCardOneTv;
@@ -77,7 +85,6 @@ public class GameActivity extends AppCompatActivity {
 
     //Betting Bar
     private SeekBar betBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +95,9 @@ public class GameActivity extends AppCompatActivity {
         setUpViews();
         createBetBar();
         setUpCamera();
-
     }
 
+    //Creates intent to use Camera (stored in MediaStore)
     private void setUpCamera() {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -101,7 +108,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void initializeVariables() {
-
         //Buttons
         placeBetBtn = (Button) findViewById(R.id.placeBetBtn);
         stickBtn = (Button) findViewById(R.id.stickBtn);
@@ -116,14 +122,11 @@ public class GameActivity extends AppCompatActivity {
         dealerCard2 = (ImageView) findViewById(R.id.dealerCard2);
         communalCard = (ImageView) findViewById(R.id.communalCard);
 
-
         //Suits next to value on card
         userCard1Suit2 = (ImageView) findViewById(R.id.card1suit2);
         userCard2Suit2 = (ImageView) findViewById(R.id.card2suit2);
-
         dealerCard1Suit2 = (ImageView) findViewById(R.id.dealercard1suit2);
         dealerCard2Suit2 = (ImageView) findViewById(R.id.dealercard2suit2);
-
         communalCardSuit = (ImageView) findViewById(R.id.communalCardSuit);
 
         //Display Value on cards
@@ -133,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
         dealerCardTwoTv = (TextView) findViewById(R.id.dealerCardTwoTv);
         communalCardTv = (TextView) findViewById(R.id.communalValueTv);
 
-        //Sad frog if bust
+        //Bust Image
         sadFrog = (ImageView) findViewById(R.id.sadFrog);
 
         //Image of chips in centre
@@ -158,11 +161,11 @@ public class GameActivity extends AppCompatActivity {
         name = (TextView) findViewById(R.id.nameTv);
         camera = (ImageView) findViewById((R.id.introImage));
 
-        // Integer Init
+        // Bet integers init
         betPlaced = 0;
         newFunds = 0;
 
-        //Game Init
+        //Game init (with Player & Dealer)
         deck = new Deck();
         newGame = new Game(deck);
 
@@ -170,12 +173,12 @@ public class GameActivity extends AppCompatActivity {
         player = (newGame.getPlayers().get(0));
         dealer = (newGame.getPlayers().get(1));
 
-        //Extras from Buy in Page
+        //Extras from Buy in Page/ReBuy page (same name newFunds being passed through)
         extras = getIntent().getExtras();
         newFunds = extras.getInt("newFunds");
         newGame.setUserFunds(newFunds);
 
-        //Extras from Intro Page
+        //Extras from Buy In Page
         String newName = extras.getString("name");
         newGame.setUserName(newName);
         name.setText(newName);
@@ -194,17 +197,17 @@ public class GameActivity extends AppCompatActivity {
 
         handValueTv.setVisibility(View.GONE);
         dealerHandValueTv.setVisibility(View.GONE);
-        //Make card suits invisible
 
+        //Make card suits invisible
         userCard1Suit2.setVisibility(View.INVISIBLE);
         userCard2Suit2.setVisibility(View.INVISIBLE);
-
         dealerCard1Suit2.setVisibility(View.INVISIBLE);
         dealerCard2Suit2.setVisibility(View.INVISIBLE);
 
         dealerTotalTv.setVisibility(View.INVISIBLE);
         userTotalTv.setVisibility(View.INVISIBLE);
 
+        //Make Communal Card invisible
         communalCard.setVisibility(View.INVISIBLE);
         communalCardSuit.setVisibility(View.INVISIBLE);
         communalDrawTextTv.setVisibility(View.INVISIBLE);
@@ -221,11 +224,10 @@ public class GameActivity extends AppCompatActivity {
         selectedBetTv.setText("£" + betBar.getProgress() + "/" + "£" + betBar.getMax());
 
         //onSeekBar is used to keep track of the value of the seekBar
-
-
         betBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 0;
 
+            //As the bar is being pressed and changed it updates the number shown on screen to the user so they can select their bet
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                 progress = progressValue;
@@ -240,8 +242,9 @@ public class GameActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 selectedBetTv.setText("£" + progress + "/" + newGame.showUserFunds());
                 if (progress < 5) {
-                    Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getApplicationContext(), "Are you sure that's enough?", Toast.LENGTH_SHORT).cancel();
                 betPlaced = progress;
             }
         });
