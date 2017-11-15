@@ -31,11 +31,17 @@ public class Game {
     }
 
     public void deal(){
+        if (this.deck.getNumberOfCards() == 0){
+            this.deck.generateDeck();
+        }
+        
         dealer.setMaxDealerFunds(player.getFunds());
         dealer.returnCards();
         player.returnCards();
 
         dealer.startDealing(this.players, this.deck);
+
+
     }
 
 
