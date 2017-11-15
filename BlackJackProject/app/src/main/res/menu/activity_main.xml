@@ -4,5 +4,5 @@
 
     <item
         android:id="@+id/action_reBuy"
-        android:title="ReBuy" />
+        android:title="@string/menu_rebuy" />
 </menu>

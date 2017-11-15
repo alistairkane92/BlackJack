@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.widget.Toast.makeText;
+import static com.example.user.blackjackproject.R.id.displayFunds;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -175,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
         showWinnerTv = (TextView) findViewById(R.id.showWinnerTv);
         checkBustTv = (TextView) findViewById(R.id.checkBustTv);
         dealerBust = (TextView) findViewById(R.id.dealerBust);
-        showFundsTv = (TextView) findViewById(R.id.displayFunds);
+        showFundsTv = (TextView) findViewById(displayFunds);
         selectedBetTv = (TextView) findViewById(R.id.selectedBetTV);
         name = (TextView) findViewById(R.id.nameTv);
         camera = (ImageView) findViewById((R.id.introImage));
@@ -233,7 +234,6 @@ public class GameActivity extends AppCompatActivity {
         communalCardTv.setVisibility(View.INVISIBLE);
 
         //Display user funds
-
         showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
     }
 
@@ -254,8 +254,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -276,10 +275,7 @@ public class GameActivity extends AppCompatActivity {
         camera.setImageBitmap(bitmap);
     }
 
-
     //Game Logic - Stick, Twist, Place Bet, Dealer Move
-
-
     public void stick(View view) {
         beforeWinAmount = (player.getFunds());
 
@@ -322,7 +318,6 @@ public class GameActivity extends AppCompatActivity {
                 communalCardTv.setVisibility(View.VISIBLE);
 
                 //sets communal card to most recent twist
-
                 communalCardTv.setText(player.getHand().getCards().get(player.getHand().getNumberOfCards() - 1).getRank().getName());
                 communalCardSuit.setImageResource(player.getHand().getCards().get(player.getHand().getNumberOfCards() - 1).getSuitImage());
 
@@ -335,7 +330,6 @@ public class GameActivity extends AppCompatActivity {
                     twistBtn.setVisibility(View.INVISIBLE);
                 }
                 handValueTv.setText(Integer.toString(newGame.showUserHandValue()));
-
             }
 
             public void onTick(long millisUntilFinished) {
@@ -350,12 +344,10 @@ public class GameActivity extends AppCompatActivity {
             newGame.placeBet(betPlaced);
 
             hideDealerCardTwo();
-
             resetTable();
-
             revealTheDeal();
-
             setChipImageSize();
+
             betBar.setMax(newGame.showUserFunds());
             chips.setVisibility(View.VISIBLE);
         } else {
@@ -372,9 +364,7 @@ public class GameActivity extends AppCompatActivity {
 
         newGame.dealerMove();
 
-        //communal card reveal step one
-
-
+        //communal card reveal
         if (dealer.getHand().getNumberOfCards() > 2) {
             new CountDownTimer(1000, 1000) {
                 @Override
@@ -418,12 +408,9 @@ public class GameActivity extends AppCompatActivity {
                 endOfRound();
             }
         }.start();
-
     }
 
-
-    //VIEW CHANGES
-
+             //VIEW CHANGES
     public void setChipImageSize(){
         chips.setVisibility(View.VISIBLE);
         if (betPlaced < 100) {
@@ -435,7 +422,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void makeRebuyVisibleIfBust(){
+    public void makeReBuyVisibleIfBust(){
         if (newGame.showUserFunds() <= 0){
             rebuyBtn.setVisibility(View.VISIBLE);
             stickBtn.setVisibility(View.GONE);
@@ -445,20 +432,17 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void endOfRound(){
-
         placeBetBtn.setVisibility(View.VISIBLE);
         betBar.setVisibility(View.VISIBLE);
         selectedBetTv.setVisibility(View.VISIBLE);
         showWinnerTv.setVisibility(View.VISIBLE);
-
         stickBtn.setVisibility(View.INVISIBLE);
         twistBtn.setVisibility(View.INVISIBLE);
-
 
         showFundsTv.setText("£" + Integer.toString(newGame.showUserFunds()));
         betBar.setMax(newGame.showUserFunds());
 
-        makeRebuyVisibleIfBust();
+        makeReBuyVisibleIfBust();
 
         String showAmountWon = Integer.toString(betPlaced);
 
@@ -469,17 +453,13 @@ public class GameActivity extends AppCompatActivity {
         if (!player.getHand().checkBust()){
             makeText(getApplicationContext(), "Place your bet please!", Toast.LENGTH_LONG).show();
         }
-
     }
 
     //DISPLAYING CARDS
-
     public void displayUserCardOne(){
             new CountDownTimer(1000, 1000) {
                 @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
+                public void onTick(long millisUntilFinished) {}
 
                 @Override
                 public void onFinish() {
@@ -489,15 +469,14 @@ public class GameActivity extends AppCompatActivity {
                     cardOneTv.setText(player.getHand().getCards().get(0).getRank().getName());
                 }
             }.start();
-
     }
 
     public void displayUserCardTwo(){
             new CountDownTimer(2000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-
                 }
+
                 @Override
                 public void onFinish() {
                     userCard2.setImageResource(android.R.color.white);
@@ -557,11 +536,22 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                if (newGame.checkIfBlackJack()){
+                    //make blackjack views visible and go back to start and payout loads
+                    resetTable();
+                    newGame.payOut(betPlaced * 5, player);
+                    showFundsTv.setText(player.getFunds());
+                    Toast.makeText(getApplicationContext(), "YOU JUST GOT BLACKJACK!", Toast.LENGTH_SHORT).show();
+                    betBar.setVisibility(View.VISIBLE);
+                    placeBetBtn.setVisibility(View.VISIBLE);
+                } else {
                 userTotalTv.setVisibility(View.VISIBLE);
                 stickBtn.setVisibility(View.VISIBLE);
                 twistBtn.setVisibility(View.VISIBLE);
                 handValueTv.setVisibility(View.VISIBLE);
                 handValueTv.setText(newGame.showUserHandValue().toString());
+                }
+
             }
 
         }.start();

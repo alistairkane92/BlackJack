@@ -116,12 +116,18 @@ public class Game {
 
     public void payOut(Integer betPlaced, Participant player){
         if (checkWinner(players).equals(player.getName())){
-            player.setFunds(player.getFunds() + betPlaced);
+            player.setFunds(player.getFunds() + betPlaced * 2);
         }
     }
 
     public void setUserName(String userName) {
         this.player.setName(userName);
+    }
+
+    public boolean checkIfBlackJack() {
+        if (player.getHandValue() == 21){
+            return true;
+        } else return false;
     }
 }
 

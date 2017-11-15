@@ -106,5 +106,17 @@ public class TestGame {
         player2.addCardToHand(card4);
         assertEquals("Dealer", game.checkWinner(players));
     }
+
+    @Test
+    public void testPayOut() throws Exception {
+        player1.addCardToHand(card4);
+        player1.addCardToHand(card4);
+        player2.addCardToHand(card4);
+        Integer betPlaced = 10;
+
+        game.payOut(betPlaced, player1);
+
+        assertEquals(1020, player1.getFunds());
+    }
 }
 
