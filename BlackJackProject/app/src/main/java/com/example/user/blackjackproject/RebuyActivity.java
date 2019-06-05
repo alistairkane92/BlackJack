@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ReBuyActivity extends AppCompatActivity {
+public class ReBuyActivity extends AppCompatActivity{
     Button reBuyBtn;
     EditText reBuyAmount;
 
